@@ -1,12 +1,42 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { createTheme } from '@mui/material/styles';
-import DescriptionIcon from '@mui/icons-material/Description';
 import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
-import type { Router } from '@toolpad/core';
-import { AutoStories, Functions, Subscriptions } from '@mui/icons-material';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Asignatura } from './app/Pages/Asignatura';
+import myImage from "./images/logouni.jpg";
+import { AutoStories, Functions } from '@mui/icons-material';
+import { PlanDeEstudio } from './app/Pages/PlanDeEstudio';
+import { ContenidosMinimos } from './app/Pages/ContenidosMinimos';
+import { Play } from './app/Pages/Play';
+
+
+const NAVIGATION = [
+  {
+    segment: "PlanDeEstudio",
+    title: "Plan de Estudio",
+    icon: <AutoStories />,
+    path: '/PlanDeEstudio',
+  },
+  {
+    segment: 'Asignatura',
+    title: 'Asignatura',
+    icon: <Functions />,
+    path: '/Asignatura',
+  },
+  {
+    segment: 'ContenidosMinimos',
+    title: 'Contenidos Mínimos',
+    icon: <Functions />,
+    path: '/ContenidosMinimos',
+  },
+  {
+    segment: 'Play',
+    title: 'Play',
+    icon: <Functions />,
+    path: '/Play',
+  },
+];
 
 const demoTheme = createTheme({
   cssVariables: {
@@ -24,79 +54,46 @@ const demoTheme = createTheme({
   },
 });
 
-function DemoPageContent({ pathname }: { pathname: string }) {
-  return (
-    <Box
-      sx={{
-        py: 4,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        textAlign: 'center',
-      }}
-    >
-      <Typography>Dashboard content for {pathname}</Typography>
-    </Box>
-  );
-}
-
 interface DemoProps {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * Remove this when copying and pasting into your project.
-   */
   window?: () => Window;
 }
 
-export default function App (props: DemoProps) {
+function DashboardLayoutNoMiniSidebar(props: DemoProps) {
   const { window } = props;
-
-  const [pathname, setPathname] = React.useState('/home');
-
-  const router = React.useMemo<Router>(() => {
-    return {
-      pathname,
-      searchParams: new URLSearchParams(),
-      navigate: (path) => setPathname(String(path)),
-    };
-  }, [pathname]);
-
-  // Remove this const when copying and pasting into your project.
   const demoWindow = window !== undefined ? window() : undefined;
 
   return (
-    // preview-start
     <AppProvider
-      navigation={[
-        {
-          segment: 'plan_estudio',
-          title: 'Plan de Estudio',
-          icon: <AutoStories />,
-        },
-        {
-          segment: 'asignatura',
-          title: 'Asignaturas',
-          icon: <Functions />,
-        },
-        {
-          segment: 'contenidos_minimos',
-          title: 'Contenidos Mínimos',
-          icon: <DescriptionIcon />,
-        },
-        {
-          segment: 'play',
-          title: 'Play',
-          icon: <Subscriptions />,
-        },
-      ]}
-      router={router}
+      navigation={NAVIGATION}
       theme={demoTheme}
       window={demoWindow}
+      branding={{
+        logo: <img src={myImage} />,
+        title: "Sistema Plan de Estudio",
+      }}
     >
-      <DashboardLayout>
-        <DemoPageContent pathname={pathname} />
+      <DashboardLayout CollapsibleSidebar>
+        <Routes>
+          <Route path="/PlanDeEstudio" element={<PlanDeEstudio />} />
+        </Routes>
+        <Routes>
+          <Route path="/Asignatura" element={<Asignatura />} />
+        </Routes>
+        <Routes>
+          <Route path="/ContenidosMinimos" element={<ContenidosMinimos />} />
+        </Routes>
+        <Routes>
+          <Route path="/Play" element={<Play />} />
+        </Routes>
       </DashboardLayout>
     </AppProvider>
-    // preview-end
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <DashboardLayoutNoMiniSidebar />
+    </Router>
   );
 }
