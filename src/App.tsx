@@ -4,12 +4,14 @@ import { AppProvider } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Asignatura } from './app/Pages/Asignatura';
-import myImage from "./images/logouni.jpg";
-import { AutoStories, Functions } from '@mui/icons-material';
+import myImage from "./images/logo_untdf.png";
+import { AutoStories, Description, Functions, Subscriptions } from '@mui/icons-material';
 import { PlanDeEstudio } from './app/Pages/PlanDeEstudio';
 import { ContenidosMinimos } from './app/Pages/ContenidosMinimos';
 import { Play } from './app/Pages/Play';
-
+import { Inicio } from './app/Pages/Inicio';
+import { useEffect } from 'react';
+import "./App.css";
 
 const NAVIGATION = [
   {
@@ -27,13 +29,13 @@ const NAVIGATION = [
   {
     segment: 'ContenidosMinimos',
     title: 'Contenidos Mínimos',
-    icon: <Functions />,
+    icon: <Description />,
     path: '/ContenidosMinimos',
   },
   {
     segment: 'Play',
     title: 'Play',
-    icon: <Functions />,
+    icon: <Subscriptions />,
     path: '/Play',
   },
 ];
@@ -73,24 +75,33 @@ function DashboardLayoutNoMiniSidebar(props: DemoProps) {
       }}
     >
       <DashboardLayout CollapsibleSidebar>
-        <Routes>
-          <Route path="/PlanDeEstudio" element={<PlanDeEstudio />} />
-        </Routes>
-        <Routes>
-          <Route path="/Asignatura" element={<Asignatura />} />
-        </Routes>
-        <Routes>
-          <Route path="/ContenidosMinimos" element={<ContenidosMinimos />} />
-        </Routes>
-        <Routes>
-          <Route path="/Play" element={<Play />} />
-        </Routes>
+        <div className="full-screen-container">
+          <Routes>
+            <Route path="/" element={<Inicio />} />
+          </Routes>
+          <Routes>
+            <Route path="/PlanDeEstudio" element={<PlanDeEstudio />} />
+          </Routes>
+          <Routes>
+            <Route path="/Asignatura" element={<Asignatura />} />
+          </Routes>
+          <Routes>
+            <Route path="/ContenidosMinimos" element={<ContenidosMinimos />} />
+          </Routes>
+          <Routes>
+            <Route path="/Play" element={<Play />} />
+          </Routes>
+        </div>
       </DashboardLayout>
     </AppProvider>
   );
 }
 
 export default function App() {
+  useEffect(() => {
+    document.title = 'Sistema Plan de Estudio';
+  }, [])
+
   return (
     <Router>
       <DashboardLayoutNoMiniSidebar />
