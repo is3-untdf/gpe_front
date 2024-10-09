@@ -8,9 +8,11 @@ export const getPokemons = (page = 0) => {
 
     //TODO realizar peticion http
     // https://localhost:5001/api/DobHTipoMaquina/getAll
-    const { data } = await(pokemonApi.get(`/DobHTipoMaquina/getAll`));
+    const { data } = await(pokemonApi.get(`/asignaturas`));
     console.log(data);
 
+    
     dispatch(setPokemons({ pokemons: data, page}));
   };
 };
+

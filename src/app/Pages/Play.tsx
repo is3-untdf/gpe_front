@@ -23,7 +23,7 @@ export const Play = () => {
       <span>{isLoading ? "Cargando" : "Listo"}</span>
       <ul>
         {pokemons.map((x) => (
-          <li key={x.id}>{x.descripcion}</li>
+          <li key={x.asignaturaId}>{x.codigo}</li>
         ))}
       </ul>
       <button
