@@ -1,6 +1,6 @@
 export interface IAsignatura {
-  id: number;
+  asignaturaId: number;
   codigo: string;
   nombre: string;
-  carga_horaria: number;
+  cargaHoraria: number;
 }

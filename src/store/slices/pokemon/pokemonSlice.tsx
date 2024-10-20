@@ -1,10 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { IAsignatura } from '../../../app/Models/Iasignatura';
 
 export const pokemonSlice = createSlice({
   name: 'pokemon',
   initialState: {
     page: 0,
-    pokemons: [],
+    pokemons: Array<IAsignatura>(),
     isLoading: false,
   },
   reducers: {
