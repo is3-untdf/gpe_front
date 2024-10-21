@@ -1,8 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { RootState, AppDispatch } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { getAsignaturas } from './../../store/slices/asignatura/thunks';
-import { Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Fab, Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Tooltip } from "@mui/material";
+import { AsignaturaForm } from "../Components/AsignaturaForm";
+import { Add } from "@mui/icons-material";
 
 export const Asignatura = () => {
   // Estilos Tabla
@@ -24,6 +26,7 @@ export const Asignatura = () => {
     },
   }));
 
+  // Leer
   const dispatch = useDispatch<AppDispatch>();
   const { asignaturas = [] } = useSelector((state: RootState) => state.asignatura);
 
@@ -36,17 +39,21 @@ export const Asignatura = () => {
     dispatch(getAsignaturas());
   }, [dispatch]);
 
+  // Agregar
+  const [modalAbrir, setModalAbrir] = useState(false);
+  const [estaEditando, setEstaEditando] = useState(false);
+
 
   return (
     <div>
       <h2>Home Page Asignatura</h2>
-      {/* <div style={{ textAlign: "end", paddingBottom: "2%" }}>
+      <div style={{ textAlign: "end", paddingBottom: "2%" }}>
         <Tooltip title="Agregar" aria-label="add">
-          <Fab color="primary" onClick={() => setModalAgregar(true)}>
+          <Fab color="primary" onClick={() => (setModalAbrir(true), setEstaEditando(false))}>
             <Add />
           </Fab>
         </Tooltip>
-      </div> */}
+      </div>
 
       {/* Tabla */}
       <TableContainer component={Paper}>
@@ -89,11 +96,11 @@ export const Asignatura = () => {
       /> */}
 
       {/* Agregar */}
-      {/* <AsignaturaForm
-        open={modalAgregar}
-        onClose={() => setModalAgregar(false)}
-        onAgregar={handleAgregar}
-      /> */}
+      <AsignaturaForm
+        open={modalAbrir}
+        onClose={() => (setModalAbrir(false), dispatch(getAsignaturas()) )}
+        estaEditando={estaEditando}
+      />
     </div>
   )
 }

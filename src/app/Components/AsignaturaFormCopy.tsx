@@ -2,25 +2,23 @@ import { useState, useEffect } from "react";
 import { IAsignatura } from "../Models/Iasignatura";
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button } from "@mui/material";
 
-interface Props {
+interface AgregarAsignaturaProps {
   open: boolean;
   onClose: () => void;
   onAgregar: (newAsignatura: IAsignatura) => void;
 }
 
-export const AsignaturaForm: React.FC<Props> = ({
+export const AsignaturaFormCopy: React.FC<AgregarAsignaturaProps> = ({
   open,
   onClose,
   onAgregar,
 }) => {
-  
   const [newAsignatura, setNewAsignatura] = useState<IAsignatura>({
-    asignaturaId: 0,
+    id: 0,
     codigo: "",
     nombre: "",
-    cargaHoraria: 0,
+    carga_horaria: 0,
   });
-
 
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -29,7 +27,7 @@ export const AsignaturaForm: React.FC<Props> = ({
     const isValid =
       newAsignatura.codigo.trim() !== "" &&
       newAsignatura.nombre.trim() !== "" &&
-      newAsignatura.cargaHoraria > 0;
+      newAsignatura.carga_horaria > 0;
     setIsFormValid(isValid);
   }, [newAsignatura]);
 
@@ -43,7 +41,7 @@ export const AsignaturaForm: React.FC<Props> = ({
   const handleSubmit = () => {
     if (isFormValid) {
       onAgregar(newAsignatura);
-      setNewAsignatura({ asignaturaId: 0, codigo: "", nombre: "", cargaHoraria: 0 });
+      setNewAsignatura({ id: 0, codigo: "", nombre: "", carga_horaria: 0 });
       onClose(); // Cerrar modal después de agregar
     }
   };
@@ -82,11 +80,11 @@ export const AsignaturaForm: React.FC<Props> = ({
           name="carga_horaria"
           type="number"
           fullWidth
-          value={newAsignatura.cargaHoraria}
+          value={newAsignatura.carga_horaria}
           onChange={handleInputChange}
-          error={newAsignatura.cargaHoraria <= 0}
+          error={newAsignatura.carga_horaria <= 0}
           helperText={
-            newAsignatura.cargaHoraria <= 0
+            newAsignatura.carga_horaria <= 0
               ? "La carga horaria debe ser mayor que 0"
               : ""
           }
