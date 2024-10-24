@@ -18,25 +18,25 @@ const NAVIGATION = [
     segment: "PlanDeEstudio",
     title: "Plan de Estudio",
     icon: <AutoStories />,
-    path: '/PlanDeEstudio',
+    // path: '/PlanDeEstudio',
   },
   {
     segment: 'Asignatura',
     title: 'Asignatura',
     icon: <Functions />,
-    path: '/Asignatura',
+    // path: '/Asignatura',
   },
   {
     segment: 'ContenidosMinimos',
     title: 'Contenidos Mínimos',
     icon: <Description />,
-    path: '/ContenidosMinimos',
+    // path: '/ContenidosMinimos',
   },
   {
     segment: 'Play',
     title: 'Play',
     icon: <Subscriptions />,
-    path: '/Play',
+    // path: '/Play',
   },
 ];
 
@@ -78,17 +78,9 @@ function DashboardLayoutNoMiniSidebar(props: DemoProps) {
         <div className="full-screen-container">
           <Routes>
             <Route path="/" element={<Inicio />} />
-          </Routes>
-          <Routes>
             <Route path="/PlanDeEstudio" element={<PlanDeEstudio />} />
-          </Routes>
-          <Routes>
             <Route path="/Asignatura" element={<Asignatura />} />
-          </Routes>
-          <Routes>
             <Route path="/ContenidosMinimos" element={<ContenidosMinimos />} />
-          </Routes>
-          <Routes>
             <Route path="/Play" element={<Play />} />
           </Routes>
         </div>

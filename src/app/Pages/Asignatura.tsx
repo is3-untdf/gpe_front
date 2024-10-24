@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAsignaturas } from './../../store/slices/asignatura/thunks';
 import { Fab, Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Tooltip } from "@mui/material";
 import { AsignaturaForm } from "../Components/AsignaturaForm";
-import { Add } from "@mui/icons-material";
+import { Add, Edit } from "@mui/icons-material";
+import { IAsignatura } from "../Models/Iasignatura";
 
 export const Asignatura = () => {
   // Estilos Tabla
@@ -34,22 +35,20 @@ export const Asignatura = () => {
     console.log(asignaturas);
   }, [asignaturas])
 
-
   useEffect(() => {
     dispatch(getAsignaturas());
   }, [dispatch]);
 
   // Agregar
   const [modalAbrir, setModalAbrir] = useState(false);
-  const [estaEditando, setEstaEditando] = useState(false);
-
+  const [editState, setEditState] = useState<IAsignatura | null>(null);
 
   return (
     <div>
-      <h2>Home Page Asignatura</h2>
+      <h2>Asignatura</h2>
       <div style={{ textAlign: "end", paddingBottom: "2%" }}>
         <Tooltip title="Agregar" aria-label="add">
-          <Fab color="primary" onClick={() => (setModalAbrir(true), setEstaEditando(false))}>
+          <Fab color="primary" onClick={() => (setModalAbrir(true), setEditState(null))}>
             <Add />
           </Fab>
         </Tooltip>
@@ -60,10 +59,11 @@ export const Asignatura = () => {
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>asignaturaId</StyledTableCell>
+              <StyledTableCell>AsignaturaId</StyledTableCell>
               <StyledTableCell>Código</StyledTableCell>
               <StyledTableCell>Nombre</StyledTableCell>
               <StyledTableCell>Carga Horaria</StyledTableCell>
+              <StyledTableCell>-Acción-</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -73,8 +73,8 @@ export const Asignatura = () => {
                 <StyledTableCell>{row.codigo}</StyledTableCell>
                 <StyledTableCell>{row.nombre}</StyledTableCell>
                 <StyledTableCell>{row.cargaHoraria}</StyledTableCell>
-                {/* <StyledTableCell align="right">{row.cargaHoraria}</StyledTableCell> */}
-                {/* <StyledTableCell align="right">
+                <StyledTableCell align="center">
+                  {/* <StyledTableCell align="right">
                   <Tooltip title="Eliminar">
                     <Delete
                       color="error"
@@ -82,6 +82,12 @@ export const Asignatura = () => {
                     />
                   </Tooltip>
                 </StyledTableCell> */}
+                  <Tooltip title="Editar" aria-label="add">
+                    <Fab size="small" color="secondary" onClick={() => (setEditState(row), setModalAbrir(true))}>
+                      <Edit />
+                    </Fab>
+                  </Tooltip>
+                </StyledTableCell>
               </StyledTableRow>
             ))}
           </TableBody>
@@ -98,9 +104,10 @@ export const Asignatura = () => {
       {/* Agregar */}
       <AsignaturaForm
         open={modalAbrir}
-        onClose={() => (setModalAbrir(false), dispatch(getAsignaturas()) )}
-        estaEditando={estaEditando}
+        onClose={() => (setModalAbrir(false), dispatch(getAsignaturas()))}
+        editState={editState}
       />
     </div>
   )
 }
+

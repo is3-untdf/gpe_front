@@ -1,105 +1,120 @@
-import { useState, useEffect } from "react";
+import { useForm, Controller } from "react-hook-form";
 import { IAsignatura } from "../Models/Iasignatura";
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button } from "@mui/material";
+import { useEffect } from "react";
+// import { useDispatch } from "react-redux"; 
+// import { postAsignatura, putAsignatura } from "../redux/actions"; // Acciones para PUT y POST
 
 interface Props {
   open: boolean;
   onClose: () => void;
-  onAgregar: (newAsignatura: IAsignatura) => void;
+  editState: IAsignatura | null; // Asignatura a editar (si aplica)
 }
 
 export const AsignaturaForm: React.FC<Props> = ({
   open,
   onClose,
-  onAgregar,
+  editState,
 }) => {
-  
-  const [newAsignatura, setNewAsignatura] = useState<IAsignatura>({
+
+  console.log(editState);
+  // const dispatch = useDispatch();
+
+  // Hook useForm de react-hook-form
+  const inicialState = {
     asignaturaId: 0,
     codigo: "",
     nombre: "",
     cargaHoraria: 0,
-  });
-
-
-  const [isFormValid, setIsFormValid] = useState(false);
-
-  // Validar que los campos no estén vacíos
-  useEffect(() => {
-    const isValid =
-      newAsignatura.codigo.trim() !== "" &&
-      newAsignatura.nombre.trim() !== "" &&
-      newAsignatura.cargaHoraria > 0;
-    setIsFormValid(isValid);
-  }, [newAsignatura]);
-
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setNewAsignatura({ ...newAsignatura, [name]: value });
   };
 
-  const handleSubmit = () => {
-    if (isFormValid) {
-      onAgregar(newAsignatura);
-      setNewAsignatura({ asignaturaId: 0, codigo: "", nombre: "", cargaHoraria: 0 });
-      onClose(); // Cerrar modal después de agregar
+
+  const { control, handleSubmit, formState: { errors }, reset } = useForm<IAsignatura>({ defaultValues: inicialState });
+  // const { control, handleSubmit, formState: { errors } } = useForm<IAsignatura>({ defaultValues: {
+  //     asignaturaId: editState?.asignaturaId || 0,
+  //     codigo: editState?.codigo || "",
+  //     nombre: editState?.nombre || "",
+  //     cargaHoraria: editState?.cargaHoraria || 0,
+  //   }
+  // });
+  // Resetear el formulario con los valores de editState cuando cambia
+  useEffect(() => {
+    if (editState) {
+      reset(editState); // Resetea los valores del formulario con los de editState
+    } else {
+      reset(inicialState);
     }
+  }, [editState, reset]);
+
+  const onSubmit = (data: IAsignatura) => {
+    console.log(data);
+    // if (estaEditando) {
+    //   dispatch(putAsignatura(data));
+    // } else {
+    //   dispatch(postAsignatura(data));
+    // }
+
+    // onClose(); // Cerrar modal después de agregar/editar
   };
 
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Agregar Asignatura</DialogTitle>
+      <DialogTitle>{editState ? "Editar" : "Agregar"}</DialogTitle>
       <DialogContent>
-        <TextField
-          margin="dense"
-          label="Código"
+        <Controller
           name="codigo"
-          fullWidth
-          value={newAsignatura.codigo}
-          onChange={handleInputChange}
-          error={newAsignatura.codigo.trim() === ""}
-          helperText={
-            newAsignatura.codigo.trim() === "" ? "El código es obligatorio" : ""
-          }
+          control={control}
+          rules={{ required: "El código es obligatorio" }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              margin="dense"
+              label="Código"
+              fullWidth
+              error={!!errors.codigo}
+              helperText={errors.codigo?.message}
+            />
+          )}
         />
-        <TextField
-          margin="dense"
-          label="Nombre"
+        <Controller
           name="nombre"
-          fullWidth
-          value={newAsignatura.nombre}
-          onChange={handleInputChange}
-          error={newAsignatura.nombre.trim() === ""}
-          helperText={
-            newAsignatura.nombre.trim() === "" ? "El nombre es obligatorio" : ""
-          }
+          control={control}
+          rules={{ required: "El nombre es obligatorio" }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              margin="dense"
+              label="Nombre"
+              fullWidth
+              error={!!errors.nombre}
+              helperText={errors.nombre?.message}
+            />
+          )}
         />
-        <TextField
-          margin="dense"
-          label="Carga Horaria"
-          name="carga_horaria"
-          type="number"
-          fullWidth
-          value={newAsignatura.cargaHoraria}
-          onChange={handleInputChange}
-          error={newAsignatura.cargaHoraria <= 0}
-          helperText={
-            newAsignatura.cargaHoraria <= 0
-              ? "La carga horaria debe ser mayor que 0"
-              : ""
-          }
+        <Controller
+          name="cargaHoraria"
+          control={control}
+          rules={{
+            required: "La carga horaria es obligatoria",
+            min: { value: 1, message: "Debe ser mayor que 0" },
+          }}
+          render={({ field }) => (
+            <TextField
+              {...field}
+              margin="dense"
+              label="Carga Horaria"
+              type="number"
+              fullWidth
+              error={!!errors.cargaHoraria}
+              helperText={errors.cargaHoraria?.message}
+            />
+          )}
         />
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancelar</Button>
-        <Button
-          onClick={handleSubmit}
-          color="primary"
-          disabled={!isFormValid}
-        >
-          Agregar
+        <Button onClick={handleSubmit(onSubmit)} color="primary">
+          {editState ? "Guardar" : "Agregar"}
         </Button>
       </DialogActions>
     </Dialog>

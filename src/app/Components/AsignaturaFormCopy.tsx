@@ -14,10 +14,10 @@ export const AsignaturaFormCopy: React.FC<AgregarAsignaturaProps> = ({
   onAgregar,
 }) => {
   const [newAsignatura, setNewAsignatura] = useState<IAsignatura>({
-    id: 0,
+    asignaturaId: 0,
     codigo: "",
     nombre: "",
-    carga_horaria: 0,
+    cargaHoraria: 0,
   });
 
   const [isFormValid, setIsFormValid] = useState(false);
@@ -27,7 +27,7 @@ export const AsignaturaFormCopy: React.FC<AgregarAsignaturaProps> = ({
     const isValid =
       newAsignatura.codigo.trim() !== "" &&
       newAsignatura.nombre.trim() !== "" &&
-      newAsignatura.carga_horaria > 0;
+      newAsignatura.cargaHoraria > 0;
     setIsFormValid(isValid);
   }, [newAsignatura]);
 
@@ -41,7 +41,7 @@ export const AsignaturaFormCopy: React.FC<AgregarAsignaturaProps> = ({
   const handleSubmit = () => {
     if (isFormValid) {
       onAgregar(newAsignatura);
-      setNewAsignatura({ id: 0, codigo: "", nombre: "", carga_horaria: 0 });
+      setNewAsignatura({ asignaturaId: 0, codigo: "", nombre: "", cargaHoraria: 0 });
       onClose(); // Cerrar modal después de agregar
     }
   };
@@ -80,11 +80,11 @@ export const AsignaturaFormCopy: React.FC<AgregarAsignaturaProps> = ({
           name="carga_horaria"
           type="number"
           fullWidth
-          value={newAsignatura.carga_horaria}
+          value={newAsignatura.cargaHoraria}
           onChange={handleInputChange}
-          error={newAsignatura.carga_horaria <= 0}
+          error={newAsignatura.cargaHoraria <= 0}
           helperText={
-            newAsignatura.carga_horaria <= 0
+            newAsignatura.cargaHoraria <= 0
               ? "La carga horaria debe ser mayor que 0"
               : ""
           }
