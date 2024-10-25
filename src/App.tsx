@@ -1,42 +1,35 @@
-import * as React from 'react';
 import { createTheme } from '@mui/material/styles';
-import { AppProvider } from '@toolpad/core/AppProvider';
+import { AppProvider, type Navigation } from '@toolpad/core/AppProvider';
 import { DashboardLayout } from '@toolpad/core/DashboardLayout';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useDemoRouter } from '@toolpad/core/internal';
 import { Asignatura } from './app/Pages/Asignatura';
+import { PlanDeEstudio } from './app/Pages/PlanDeEstudio'; // Importa PlanDeEstudio
+import { ContenidosMinimos } from './app/Pages/ContenidosMinimos'; // Importa ContenidosMinimos
+import { Play } from './app/Pages/Play'; // Importa Play
 import myImage from "./images/logo_untdf.png";
 import { AutoStories, Description, Functions, Subscriptions } from '@mui/icons-material';
-import { PlanDeEstudio } from './app/Pages/PlanDeEstudio';
-import { ContenidosMinimos } from './app/Pages/ContenidosMinimos';
-import { Play } from './app/Pages/Play';
 import { Inicio } from './app/Pages/Inicio';
-import { useEffect } from 'react';
-import "./App.css";
 
-const NAVIGATION = [
+const NAVIGATION: Navigation = [
   {
-    segment: "PlanDeEstudio",
+    segment: "planDeEstudio",
     title: "Plan de Estudio",
     icon: <AutoStories />,
-    // path: '/PlanDeEstudio',
   },
   {
-    segment: 'Asignatura',
+    segment: 'asignatura',
     title: 'Asignatura',
     icon: <Functions />,
-    // path: '/Asignatura',
   },
   {
-    segment: 'ContenidosMinimos',
+    segment: 'contenidosMinimos',
     title: 'Contenidos Mínimos',
     icon: <Description />,
-    // path: '/ContenidosMinimos',
   },
   {
-    segment: 'Play',
+    segment: 'play',
     title: 'Play',
     icon: <Subscriptions />,
-    // path: '/Play',
   },
 ];
 
@@ -60,43 +53,29 @@ interface DemoProps {
   window?: () => Window;
 }
 
-function DashboardLayoutNoMiniSidebar(props: DemoProps) {
+export default function DashboardLayoutBranding(props: DemoProps) {
   const { window } = props;
+  const router = useDemoRouter('/');
   const demoWindow = window !== undefined ? window() : undefined;
 
   return (
     <AppProvider
       navigation={NAVIGATION}
-      theme={demoTheme}
-      window={demoWindow}
       branding={{
         logo: <img src={myImage} />,
         title: "Sistema Plan de Estudio",
       }}
+      router={router}
+      theme={demoTheme}
+      window={demoWindow}
     >
-      <DashboardLayout CollapsibleSidebar>
-        <div className="full-screen-container">
-          <Routes>
-            <Route path="/" element={<Inicio />} />
-            <Route path="/PlanDeEstudio" element={<PlanDeEstudio />} />
-            <Route path="/Asignatura" element={<Asignatura />} />
-            <Route path="/ContenidosMinimos" element={<ContenidosMinimos />} />
-            <Route path="/Play" element={<Play />} />
-          </Routes>
-        </div>
+      <DashboardLayout>
+        {router.pathname === '/asignatura' && <Asignatura />}
+        {router.pathname === '/planDeEstudio' && <PlanDeEstudio />}
+        {router.pathname === '/contenidosMinimos' && <ContenidosMinimos />}
+        {router.pathname === '/play' && <Play />}
+        {router.pathname === '/' && <Inicio />}
       </DashboardLayout>
     </AppProvider>
-  );
-}
-
-export default function App() {
-  useEffect(() => {
-    document.title = 'Sistema Plan de Estudio';
-  }, [])
-
-  return (
-    <Router>
-      <DashboardLayoutNoMiniSidebar />
-    </Router>
   );
 }

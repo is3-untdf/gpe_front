@@ -11,11 +11,7 @@ interface Props {
   editState: IAsignatura | null; // Asignatura a editar (si aplica)
 }
 
-export const AsignaturaForm: React.FC<Props> = ({
-  open,
-  onClose,
-  editState,
-}) => {
+export const AsignaturaForm: React.FC<Props> = ({ open, onClose, editState }) => {
 
   console.log(editState);
   // const dispatch = useDispatch();
@@ -30,13 +26,7 @@ export const AsignaturaForm: React.FC<Props> = ({
 
 
   const { control, handleSubmit, formState: { errors }, reset } = useForm<IAsignatura>({ defaultValues: inicialState });
-  // const { control, handleSubmit, formState: { errors } } = useForm<IAsignatura>({ defaultValues: {
-  //     asignaturaId: editState?.asignaturaId || 0,
-  //     codigo: editState?.codigo || "",
-  //     nombre: editState?.nombre || "",
-  //     cargaHoraria: editState?.cargaHoraria || 0,
-  //   }
-  // });
+
   // Resetear el formulario con los valores de editState cuando cambia
   useEffect(() => {
     if (editState) {
