@@ -8,10 +8,8 @@ export const asignaturaSlice = createSlice({
   },
   reducers: {
     setAsignaturas: (state, action) => {
-      console.log(action);
       state.asignaturas = action.payload.asignaturas;
     },
-   
   },
 })
 

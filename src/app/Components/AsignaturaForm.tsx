@@ -2,8 +2,9 @@ import { useForm, Controller } from "react-hook-form";
 import { IAsignatura } from "../Models/Iasignatura";
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button } from "@mui/material";
 import { useEffect } from "react";
-// import { useDispatch } from "react-redux"; 
-// import { postAsignatura, putAsignatura } from "../redux/actions"; // Acciones para PUT y POST
+import { useDispatch } from "react-redux";
+import { postAsignatura, putAsignatura } from "../../store/slices/asignatura/thunks";
+import { AppDispatch } from "../../store/store";
 
 interface Props {
   open: boolean;
@@ -12,9 +13,8 @@ interface Props {
 }
 
 export const AsignaturaForm: React.FC<Props> = ({ open, onClose, editState }) => {
-
-  console.log(editState);
-  // const dispatch = useDispatch();
+  // console.log(editState);
+  const dispatch: AppDispatch = useDispatch();
 
   // Hook useForm de react-hook-form
   const inicialState = {
@@ -23,7 +23,6 @@ export const AsignaturaForm: React.FC<Props> = ({ open, onClose, editState }) =>
     nombre: "",
     cargaHoraria: 0,
   };
-
 
   const { control, handleSubmit, formState: { errors }, reset } = useForm<IAsignatura>({ defaultValues: inicialState });
 
@@ -37,14 +36,12 @@ export const AsignaturaForm: React.FC<Props> = ({ open, onClose, editState }) =>
   }, [editState, reset]);
 
   const onSubmit = (data: IAsignatura) => {
-    console.log(data);
-    // if (estaEditando) {
-    //   dispatch(putAsignatura(data));
-    // } else {
-    //   dispatch(postAsignatura(data));
-    // }
-
-    // onClose(); // Cerrar modal después de agregar/editar
+    if (editState) {
+      dispatch(putAsignatura(data));
+    } else {
+      dispatch(postAsignatura(data));
+    }
+    onClose(); // Cerrar modal después de agregar/editar
   };
 
   return (
@@ -54,7 +51,10 @@ export const AsignaturaForm: React.FC<Props> = ({ open, onClose, editState }) =>
         <Controller
           name="codigo"
           control={control}
-          rules={{ required: "El código es obligatorio" }}
+          rules={{ 
+            required: "El código es obligatorio", 
+            maxLength: { value: 8, message: "Máximo 8 caracteres" } 
+          }}
           render={({ field }) => (
             <TextField
               {...field}
@@ -86,7 +86,8 @@ export const AsignaturaForm: React.FC<Props> = ({ open, onClose, editState }) =>
           control={control}
           rules={{
             required: "La carga horaria es obligatoria",
-            min: { value: 1, message: "Debe ser mayor que 0" },
+            min: { value: 1, message: "Debe ser mayor a 0" },
+            max: {value: 9999, message: "Debe ser menor o igual a 9999"}
           }}
           render={({ field }) => (
             <TextField

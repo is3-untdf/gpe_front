@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import type { RootState, AppDispatch } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
-import { getAsignaturas } from './../../store/slices/asignatura/thunks';
+import { deleteAsignatura, getAsignaturas } from './../../store/slices/asignatura/thunks';
 import { Fab, Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Tooltip } from "@mui/material";
 import { AsignaturaForm } from "../Components/AsignaturaForm";
-import { Add, Edit } from "@mui/icons-material";
+import { Add, Delete, Edit } from "@mui/icons-material";
 import { IAsignatura } from "../Models/Iasignatura";
+import AlertDialogEliminar from "../Hooks/AlertDialogEliminar";
 
 export const Asignatura = () => {
   // Estilos Tabla
@@ -30,11 +31,6 @@ export const Asignatura = () => {
   // Leer
   const dispatch = useDispatch<AppDispatch>();
   const { asignaturas = [] } = useSelector((state: RootState) => state.asignatura);
-
-  useEffect(() => {
-    console.log(asignaturas);
-  }, [asignaturas])
-
   useEffect(() => {
     dispatch(getAsignaturas());
   }, [dispatch]);
@@ -43,10 +39,30 @@ export const Asignatura = () => {
   const [modalAbrir, setModalAbrir] = useState(false);
   const [editState, setEditState] = useState<IAsignatura | null>(null);
 
+  //Borrar
+  const [deleteId, setDeleteId] = useState<number | null>(null); // ID a eliminar
+  const [openDialog, setOpenDialog] = useState(false); // Estado del modal
+  const borrar = (asignaturaId: number) => {
+    setDeleteId(asignaturaId); // Guarda el ID de la asignatura a eliminar
+    setOpenDialog(true);       // Abre el modal de confirmación
+  };
+  const handleConfirmDelete = () => {
+    if (deleteId !== null) {
+      dispatch(deleteAsignatura(deleteId)); // Despacha la acción para eliminar
+    }
+    setDeleteId(null);       // Restablece el ID
+    setOpenDialog(false);    // Cierra el modal
+  };
+  const handleCancelDelete = () => {
+    setDeleteId(null);    // Restablece el ID
+    setOpenDialog(false); // Cierra el modal sin eliminar
+  };
+
+
   return (
-    <div>
+    <div style={{ paddingLeft: "2%", paddingRight: "2%" }}>
       <h2>Asignatura</h2>
-      <div style={{ textAlign: "end", paddingBottom: "2%" }}>
+      <div style={{ textAlign: "end", paddingBottom: "1%" }}>
         <Tooltip title="Agregar" aria-label="add">
           <Fab color="primary" onClick={() => (setModalAbrir(true), setEditState(null))}>
             <Add />
@@ -73,18 +89,15 @@ export const Asignatura = () => {
                 <StyledTableCell>{row.codigo}</StyledTableCell>
                 <StyledTableCell>{row.nombre}</StyledTableCell>
                 <StyledTableCell>{row.cargaHoraria}</StyledTableCell>
-                <StyledTableCell align="center">
-                  {/* <StyledTableCell align="right">
-                  <Tooltip title="Eliminar">
-                    <Delete
-                      color="error"
-                      onClick={() => eliminarClick(row.id)}
-                    />
+                <StyledTableCell >
+                  <Tooltip title="Editar" >
+                    <Fab color="secondary" size="small" style={{ marginRight: "20px" }}>
+                      <Edit onClick={() => (setEditState(row), setModalAbrir(true))} />
+                    </Fab>
                   </Tooltip>
-                </StyledTableCell> */}
-                  <Tooltip title="Editar" aria-label="add">
-                    <Fab size="small" color="secondary" onClick={() => (setEditState(row), setModalAbrir(true))}>
-                      <Edit />
+                  <Tooltip title="Eliminar">
+                    <Fab color="error" size="small" >
+                      <Delete onClick={() => borrar(row.asignaturaId)} />
                     </Fab>
                   </Tooltip>
                 </StyledTableCell>
@@ -95,16 +108,16 @@ export const Asignatura = () => {
       </TableContainer>
 
       {/* Eliminar */}
-      {/* <AlertDialogEliminar
+      <AlertDialogEliminar
         open={openDialog}
-        onClose={handleCancelDelete}
         onConfirm={handleConfirmDelete}
-      /> */}
+        onClose={handleCancelDelete}
+      />
 
       {/* Agregar */}
       <AsignaturaForm
         open={modalAbrir}
-        onClose={() => (setModalAbrir(false), dispatch(getAsignaturas()))}
+        onClose={() => (setModalAbrir(false), setEditState(null))}
         editState={editState}
       />
     </div>
