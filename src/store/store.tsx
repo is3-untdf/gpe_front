@@ -1,18 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { counterSlice } from './slices/counter/counterSlice';
-import { pokemonSlice } from './slices/pokemon/pokemonSlice';
 import { asignaturaSlice } from './slices/asignatura/asignaturaSlice';
+import { planDeEstudioSlice } from './slices/planDeEstudio/planDeEstudioSlice';
+import { intensidadSlice } from './slices/intensidad/intensidadSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterSlice.reducer,
-    pokemon: pokemonSlice.reducer,
     asignatura: asignaturaSlice.reducer,
+    planDeEstudio: planDeEstudioSlice.reducer,
+    intensidades: intensidadSlice.reducer,
   },
 })
 
-
-// Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch

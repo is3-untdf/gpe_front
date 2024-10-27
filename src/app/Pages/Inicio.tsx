@@ -2,19 +2,19 @@ import "./styles.css";
 
 export const Inicio = () => {
   return (
-    <div>
-      <div className="loader-container">
-        <h2>Bienvenido!!</h2>
-        <div className="loader">
+    <div style={{ display: "grid", width: '79vw', height: '90vh'}}>
+      <h2 style={{ textAlign: "center" }}>Bienvenido!!</h2>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr ", width: '79vw' }}>
+        <div className="loader" style={{ margin: "0 auto" }}>
           <span className="loader:before"></span>
         </div>
-        <div className="derechos">
-          <p>Ingeniería del Software 3 - Licenciatura en Sistemas</p>
-          {/* <p>Luis Orescovich - Cayetano Simon Paradiso</p> */}
-          {/* <p>Ricardo Rocha - Gonzalo Rolon</p> */}
-          {/* <p>Profesores: Horacio Pendeti - Cintia Aguado</p> */}
-          <p>@ UNTDF - 2024</p>
-        </div>
+      </div>
+      <div style={{ fontSize: "0.7rem", color:"gray", textAlign: "center"}}>
+        <div>Ingeniería del Software 3 - Licenciatura en Sistemas</div>
+        <div>Luis Orescovich - Cayetano Simon Paradiso</div>
+        <div>Ricardo Rocha - Gonzalo Rolon</div>
+        <div>Profesores: Horacio Pendetti - Cintia Aguado</div>
+        <div>@ UNTDF - 2024</div>
       </div>
     </div>
   );

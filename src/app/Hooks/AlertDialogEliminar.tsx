@@ -2,15 +2,14 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 
 interface AlertDialogProps {
   open: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
+  onClose: (result: boolean) => void; // Cambiado para aceptar un valor booleano
 }
 
-export default function AlertDialogEliminar({ open, onClose, onConfirm }: AlertDialogProps) {
+export default function AlertDialogEliminar({ open, onClose }: AlertDialogProps) {
   return (
     <Dialog
       open={open}
-      onClose={onClose}
+      onClose={() => onClose(false)} // Cierra el modal y retorna "false"
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
@@ -21,13 +20,14 @@ export default function AlertDialogEliminar({ open, onClose, onConfirm }: AlertD
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="error">
+        <Button onClick={() => onClose(false)} color="error">
           No
         </Button>
-        <Button onClick={onConfirm} color="success" autoFocus>
+        <Button onClick={() => onClose(true)} color="success" autoFocus>
           Sí
         </Button>
       </DialogActions>
     </Dialog>
   );
 }
+

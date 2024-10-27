@@ -1,4 +1,4 @@
 export interface Iplan_estudio {
-  id: number;
+  planEstudioId: number;
   nombre: string;
 }

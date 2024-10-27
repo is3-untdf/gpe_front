@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Fab, Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Tooltip } from "@mui/material";
 import { Add, Delete, Edit } from "@mui/icons-material";
 import AlertDialogEliminar from "../Hooks/AlertDialogEliminar";
-import { deletePlanDeEstudio, getPlanDeEstudios } from "../../store/slices/planDeEstudio/planDeEstudioThunks";
-import { Iplan_estudio } from "../Models/Iplan_estudio";
-import { PlanDeEstudioForm } from "../Components/PlanDeEstudioForm";
+import { deleteIntensidad, getIntensidades } from "../../store/slices/intensidad/intensidadThunks";
+import { Iintensidad } from "../Models/Iintensidad";
+import { IntensidadForm } from "../Components/IntensidadForm";
 
-export const PlanDeEstudio = () => {
+export const Intensidad = () => {
   // Estilos Tabla
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -30,29 +30,33 @@ export const PlanDeEstudio = () => {
 
   // Leer
   const dispatch = useDispatch<AppDispatch>();
-  const { planDeEstudios = [] } = useSelector((state: RootState) => state.planDeEstudio);
+  const { intensidades = [] } = useSelector((state: RootState) => state.intensidades);
   useEffect(() => {
-    dispatch(getPlanDeEstudios());
+    dispatch(getIntensidades());
   }, [dispatch]);
 
   // Agregar
   const [modalAbrir, setModalAbrir] = useState(false);
-  const [editState, setEditState] = useState<Iplan_estudio | null>(null);
+  const [editState, setEditState] = useState<Iintensidad | null>(null);
 
   //Borrar
   const [deleteId, setDeleteId] = useState<number | null>(null); // ID a eliminar
   const [openDialog, setOpenDialog] = useState(false);
   const handleDialogClose = (confirmDelete: boolean) => {
     if (confirmDelete && deleteId !== null) {
-      dispatch(deletePlanDeEstudio(deleteId));
+      dispatch(deleteIntensidad(deleteId));
     }
     setDeleteId(null);
     setOpenDialog(false);
   };
 
+  useEffect(() => {
+    console.log(intensidades)
+  }, [intensidades])
+
   return (
     <div style={{ paddingLeft: "2%", paddingRight: "2%" }}>
-      <h2>Plan de Estudio</h2>
+      <h2>Intensidad</h2>
       <div style={{ textAlign: "end", paddingBottom: "1%" }}>
         {/* Agregar */}
         <Tooltip title="Agregar" aria-label="add">
@@ -66,27 +70,30 @@ export const PlanDeEstudio = () => {
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Id</StyledTableCell>
-              <StyledTableCell>Nombre</StyledTableCell>
+              <StyledTableCell>IntensidadId</StyledTableCell>
+              <StyledTableCell>Nivel</StyledTableCell>
+              <StyledTableCell>Descripción</StyledTableCell>
               <StyledTableCell>-Acción-</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {planDeEstudios?.map((row) => (
-              <StyledTableRow key={row.planEstudioId}>
-                <StyledTableCell>{row.planEstudioId}</StyledTableCell>
-                <StyledTableCell>{row.nombre}</StyledTableCell>
+            {intensidades?.map((row) => (
+              <StyledTableRow key={row.intensidadId}>
+                <StyledTableCell>{row.intensidadId}</StyledTableCell>
+                <StyledTableCell>{row.nivel}</StyledTableCell>
+                <StyledTableCell>{row.descripcion}</StyledTableCell>
                 <StyledTableCell style={{ display: "flex" }}>
                   {/* Botón Editar */}
                   <Tooltip title="Editar" >
                     <Fab color="secondary" size="small" style={{ marginRight: "20px" }}>
+                    {/* <Fab color="secondary" size="small"> */}
                       <Edit onClick={() => (setEditState(row), setModalAbrir(true))} />
                     </Fab>
                   </Tooltip>
                   {/* Boton Eliminar */}
                   <Tooltip title="Eliminar">
                     <Fab color="error" size="small" >
-                      <Delete onClick={() => {setDeleteId(row.planEstudioId); setOpenDialog(true)}} />
+                      <Delete onClick={() => { setDeleteId(row.intensidadId); setOpenDialog(true) }} />
                     </Fab>
                   </Tooltip>
                 </StyledTableCell>
@@ -95,13 +102,13 @@ export const PlanDeEstudio = () => {
           </TableBody>
         </Table>
       </TableContainer>
-       {/* Modal Eliminar */}
+      {/* Modal Eliminar */}
       <AlertDialogEliminar
         open={openDialog}
         onClose={handleDialogClose}
       />
       {/* Modal Agregar */}
-      <PlanDeEstudioForm
+      <IntensidadForm
         open={modalAbrir}
         onClose={() => (setModalAbrir(false), setEditState(null))}
         editState={editState}

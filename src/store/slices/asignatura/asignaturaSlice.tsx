@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { IAsignatura } from '../../../app/Models/Iasignatura';
+import { Iasignatura } from '../../../app/Models/Iasignatura';
 
 export const asignaturaSlice = createSlice({
   name: 'asignatura',
   initialState: {
-    asignaturas: Array<IAsignatura>(),
+    asignaturas: Array<Iasignatura>(),
   },
   reducers: {
     setAsignaturas: (state, action) => {

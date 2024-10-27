@@ -1,5 +1,5 @@
 export interface Iintensidad {
-  id: number;
-  nivel: number;
+  intensidadId: number;
+  nivel: string;
   descripcion?: string | null;
 }

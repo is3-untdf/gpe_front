@@ -7,8 +7,9 @@ import { PlanDeEstudio } from './app/Pages/PlanDeEstudio'; // Importa PlanDeEstu
 import { ContenidosMinimos } from './app/Pages/ContenidosMinimos'; // Importa ContenidosMinimos
 import { Play } from './app/Pages/Play'; // Importa Play
 import myImage from "./images/logo_untdf.png";
-import { AutoStories, Description, Functions, Subscriptions } from '@mui/icons-material';
+import { AutoStories, Description, Functions, SignalCellularConnectedNoInternet1Bar, Subscriptions } from '@mui/icons-material';
 import { Inicio } from './app/Pages/Inicio';
+import { Intensidad } from './app/Pages/Intensidad';
 
 const NAVIGATION: Navigation = [
   {
@@ -25,6 +26,11 @@ const NAVIGATION: Navigation = [
     segment: 'contenidosMinimos',
     title: 'Contenidos Mínimos',
     icon: <Description />,
+  },
+  {
+    segment: 'intensidad',
+    title: 'Intensidad',
+    icon: <SignalCellularConnectedNoInternet1Bar />,
   },
   {
     segment: 'play',
@@ -73,6 +79,7 @@ export default function DashboardLayoutBranding(props: DemoProps) {
         {router.pathname === '/asignatura' && <Asignatura />}
         {router.pathname === '/planDeEstudio' && <PlanDeEstudio />}
         {router.pathname === '/contenidosMinimos' && <ContenidosMinimos />}
+        {router.pathname === '/intensidad' && <Intensidad />}
         {router.pathname === '/play' && <Play />}
         {router.pathname === '/' && <Inicio />}
       </DashboardLayout>

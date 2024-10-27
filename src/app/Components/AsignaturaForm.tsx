@@ -1,15 +1,15 @@
 import { useForm, Controller } from "react-hook-form";
-import { IAsignatura } from "../Models/Iasignatura";
+import { Iasignatura } from "../Models/Iasignatura";
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button } from "@mui/material";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { postAsignatura, putAsignatura } from "../../store/slices/asignatura/thunks";
+import { postAsignatura, putAsignatura } from "../../store/slices/asignatura/asignaturaThunks";
 import { AppDispatch } from "../../store/store";
 
 interface Props {
   open: boolean;
   onClose: () => void;
-  editState: IAsignatura | null; // Asignatura a editar (si aplica)
+  editState: Iasignatura | null; // Asignatura a editar (si aplica)
 }
 
 export const AsignaturaForm: React.FC<Props> = ({ open, onClose, editState }) => {
@@ -24,7 +24,7 @@ export const AsignaturaForm: React.FC<Props> = ({ open, onClose, editState }) =>
     cargaHoraria: 0,
   };
 
-  const { control, handleSubmit, formState: { errors }, reset } = useForm<IAsignatura>({ defaultValues: inicialState });
+  const { control, handleSubmit, formState: { errors }, reset } = useForm<Iasignatura>({ defaultValues: inicialState });
 
   // Resetear el formulario con los valores de editState cuando cambia
   useEffect(() => {
@@ -35,7 +35,7 @@ export const AsignaturaForm: React.FC<Props> = ({ open, onClose, editState }) =>
     }
   }, [editState, reset]);
 
-  const onSubmit = (data: IAsignatura) => {
+  const onSubmit = (data: Iasignatura) => {
     if (editState) {
       dispatch(putAsignatura(data));
     } else {

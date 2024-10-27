@@ -1,5 +1,5 @@
 import { Api } from "../../../api/Api";
-import { IAsignatura } from "../../../app/Models/Iasignatura";
+import { Iasignatura } from "../../../app/Models/Iasignatura";
 import type { AppDispatch } from "../../store";
 import { setAsignaturas } from "./asignaturaSlice";
 
@@ -9,7 +9,7 @@ export const getAsignaturas = () => {
     dispatch(setAsignaturas({ asignaturas: data}));
   };
 };
-export const putAsignatura = (data: IAsignatura) => {
+export const putAsignatura = (data: Iasignatura) => {
   return async (dispatch: AppDispatch) => {
     try {
       await Api.put(`/asignaturas/${data.asignaturaId}`, data);
@@ -19,7 +19,7 @@ export const putAsignatura = (data: IAsignatura) => {
     }
   };
 };
-export const postAsignatura = (data: IAsignatura) => {
+export const postAsignatura = (data: Iasignatura) => {
   return async (dispatch: AppDispatch) => {
     try {
       await Api.post('/asignaturas', data);
@@ -40,6 +40,4 @@ export const deleteAsignatura = (data: number) => {
     }
   };
 };
-
-
 

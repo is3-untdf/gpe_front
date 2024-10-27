@@ -1,4 +1,4 @@
-export interface IAsignatura {
+export interface Iasignatura {
   asignaturaId: number;
   codigo: string;
   nombre: string;

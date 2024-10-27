@@ -1,20 +1,3 @@
-/* Este contenedor centrará el círculo en el centro de la pantalla, tanto horizontal como verticalmente */
-.loader-container {
-  /* display: flex; */
-  /* text-align: center; */
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center;     /* Centra verticalmente */
-  height: 80vh;           /* Ocupa toda la altura de la pantalla */
-  padding-left: 50vh;
-}
-
-/* Estilo para los derechos (texto debajo del círculo) */
-.derechos {
-  margin-top: 30%;
-  font-size: 0.75rem; /* Letra pequeña */
-  color: gray;        /* Color gris */
-  text-align: center; /* Centra horizontalmente */
-}
 
 /* Estilos del loader (círculo de carga) */
 .loader {
