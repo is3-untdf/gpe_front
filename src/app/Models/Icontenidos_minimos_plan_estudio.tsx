@@ -6,9 +6,11 @@ export interface Icontenidos_minimos_plan_estudio {
   nombre: string;
   horasPractica?: number | 0;
   horasTeoria?: number | 0;
-  exigencia: "O" | "R";
-  asignaturaId: Iasignatura;
-  intensidadId: Iintensidad;
+  exigencia: string;
+  asignaturaId: number;
+  asignatura?: Iasignatura|null; //Tabla relacionada
+  intensidadId: number;
+  intensidad?: Iintensidad|null; //Tabla relacionada
 }
 
 // {
@@ -16,7 +18,8 @@ export interface Icontenidos_minimos_plan_estudio {
 //   "nombre": "",
 //   "horasPractica": "",
 //   "horasTeoria": "",
-//   "exigencia": "O",
+//   "exigencia": "O", //O|R
 //   "asignaturaId": "",
 //   "intensidadId": ""
 // }
+

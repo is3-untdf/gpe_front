@@ -23,14 +23,14 @@ const NAVIGATION: Navigation = [
     icon: <Functions />,
   },
   {
-    segment: 'contenidosMinimos',
-    title: 'Contenidos Mínimos',
-    icon: <Description />,
-  },
-  {
     segment: 'intensidad',
     title: 'Intensidad',
     icon: <SignalCellularConnectedNoInternet1Bar />,
+  },
+  {
+    segment: 'contenidosMinimos',
+    title: 'Contenidos Mínimos',
+    icon: <Description />,
   },
   {
     segment: 'play',
