@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import type { RootState, AppDispatch } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { Fab, Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Tooltip } from "@mui/material";
-import { Add, Delete, Edit } from "@mui/icons-material";
+import { Add, Delete, Edit, FileCopy } from "@mui/icons-material";
 import AlertDialogEliminar from "../Hooks/AlertDialogEliminar";
 import { deletePlanDeEstudio, getPlanDeEstudios } from "../../store/slices/planDeEstudio/planDeEstudioThunks";
 import { Iplan_estudio } from "../Models/Iplan_estudio";
 import { PlanDeEstudioForm } from "../Components/PlanDeEstudioForm";
+import { PlanDeEstudioClonarForm } from "../Components/PlanDeEstudioClonarForm";
 
 export const PlanDeEstudio = () => {
   // Estilos Tabla
@@ -38,6 +39,10 @@ export const PlanDeEstudio = () => {
   // Agregar
   const [modalAbrir, setModalAbrir] = useState(false);
   const [editState, setEditState] = useState<Iplan_estudio | null>(null);
+  
+  //Clonar
+  const [modalAbrirClonar, setModalAbrirClonar] = useState(false);
+  const [editStateClonar, setEditStateClonar] = useState<Iplan_estudio | null>(null);
 
   //Borrar
   const [deleteId, setDeleteId] = useState<number | null>(null); // ID a eliminar
@@ -49,6 +54,8 @@ export const PlanDeEstudio = () => {
     setDeleteId(null);
     setOpenDialog(false);
   };
+
+
 
   return (
     <div style={{ paddingLeft: "2%", paddingRight: "2%" }}>
@@ -79,14 +86,21 @@ export const PlanDeEstudio = () => {
                 <StyledTableCell style={{ display: "flex" }}>
                   {/* Botón Editar */}
                   <Tooltip title="Editar" >
-                    <Fab color="secondary" size="small" style={{ marginRight: "20px" }}>
-                      <Edit onClick={() => (setEditState(row), setModalAbrir(true))} />
+                    <Fab color="secondary" size="small" style={{ marginRight: "20px" }} onClick={() => (setEditState(row), setModalAbrir(true))}>
+                      <Edit />
                     </Fab>
                   </Tooltip>
                   {/* Boton Eliminar */}
                   <Tooltip title="Eliminar">
-                    <Fab color="error" size="small" >
-                      <Delete onClick={() => {setDeleteId(row.planEstudioId); setOpenDialog(true)}} />
+                    <Fab color="error" size="small" style={{ marginRight: "20px" }} onClick={() => { setDeleteId(row.planEstudioId); setOpenDialog(true) }}>
+                      <Delete />
+                    </Fab>
+                  </Tooltip>
+                  {/* Boton Clonar */}
+                  <Tooltip title="Clonar">
+                    <Fab color="info" size="small" onClick={() => (setEditStateClonar(row), setModalAbrirClonar(true))} >
+                      {/* <Fab color="default" size="small"> */}
+                      <FileCopy />
                     </Fab>
                   </Tooltip>
                 </StyledTableCell>
@@ -95,7 +109,7 @@ export const PlanDeEstudio = () => {
           </TableBody>
         </Table>
       </TableContainer>
-       {/* Modal Eliminar */}
+      {/* Modal Eliminar */}
       <AlertDialogEliminar
         open={openDialog}
         onClose={handleDialogClose}
@@ -105,6 +119,12 @@ export const PlanDeEstudio = () => {
         open={modalAbrir}
         onClose={() => (setModalAbrir(false), setEditState(null))}
         editState={editState}
+      />
+      <PlanDeEstudioClonarForm
+        open={modalAbrirClonar}
+        onClose={() => (setModalAbrirClonar(false), setEditStateClonar(null))}
+        editState={editStateClonar}
+        planDeEstudios= {planDeEstudios}
       />
     </div>
   )

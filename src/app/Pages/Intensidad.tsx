@@ -85,17 +85,16 @@ export const Intensidad = () => {
                 <StyledTableCell style={{ display: "flex" }}>
                   {/* Botón Editar */}
                   <Tooltip title="Editar" >
-                    <Fab color="secondary" size="small" style={{ marginRight: "20px" }}>
-                    {/* <Fab color="secondary" size="small"> */}
-                      <Edit onClick={() => (setEditState(row), setModalAbrir(true))} />
+                    <Fab color="secondary" size="small" style={{ marginRight: "20px" }} onClick={() => (setEditState(row), setModalAbrir(true))}>
+                      <Edit/>
                     </Fab>
                   </Tooltip>
                   {/* Boton Eliminar */}
                   <Tooltip title="Eliminar">
-                    <Fab color="error" size="small" >
-                      <Delete onClick={() => { setDeleteId(row.intensidadId); setOpenDialog(true) }} />
+                    <Fab color="error" size="small" onClick={() => { setDeleteId(row.intensidadId); setOpenDialog(true) }} >
+                      <Delete/>
                     </Fab>
-                  </Tooltip>
+                  </Tooltip>                 
                 </StyledTableCell>
               </StyledTableRow>
             ))}

@@ -13,7 +13,7 @@ interface Props {
 }
 
 export const PlanDeEstudioForm: React.FC<Props> = ({ open, onClose, editState }) => {
-  // console.log(editState);
+  console.log(editState);
   const dispatch: AppDispatch = useDispatch();
 
   // Hook useForm de react-hook-form

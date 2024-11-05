@@ -13,7 +13,7 @@ export const Inicio = () => {
         <div>Ingeniería del Software 3 - Licenciatura en Sistemas</div>
         <div>Luis Orescovich - Cayetano Simon Paradiso</div>
         <div>Ricardo Rocha - Gonzalo Rolon</div>
-        <div>Profesores: Horacio Pendetti - Cintia Aguado</div>
+        <div>Profesores: Horacio Pendenti - Cintia Aguado</div>
         <div>@ UNTDF - 2024</div>
       </div>
     </div>

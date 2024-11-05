@@ -83,14 +83,14 @@ export const Asignatura = () => {
                 <StyledTableCell style={{ display: "flex" }}>
                   {/* Botón Editar */}
                   <Tooltip title="Editar" >
-                    <Fab color="secondary" size="small" style={{ marginRight: "20px" }}>
-                      <Edit onClick={() => (setEditState(row), setModalAbrir(true))} />
+                    <Fab color="secondary" size="small" style={{ marginRight: "20px" }} onClick={() => (setEditState(row), setModalAbrir(true))} >
+                      <Edit/>
                     </Fab>
                   </Tooltip>
                   {/* Boton Eliminar */}
                   <Tooltip title="Eliminar">
-                    <Fab color="error" size="small" >
-                      <Delete onClick={() => {setDeleteId(row.asignaturaId); setOpenDialog(true)}} />
+                    <Fab color="error" size="small" onClick={() => {setDeleteId(row.asignaturaId); setOpenDialog(true)}} >
+                      <Delete/>
                     </Fab>
                   </Tooltip>
                 </StyledTableCell>

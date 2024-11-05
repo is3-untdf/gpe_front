@@ -1,5 +1,5 @@
 import { Iasignatura } from "./Iasignatura";
-import { Iintensidad } from "./Iintensidad";
+import { Iplan_estudio } from "./Iplan_estudio";
 
 export interface Icontenidos_minimos_plan_estudio {
   contenidoMinimoPlanEstudioId: number;
@@ -7,19 +7,11 @@ export interface Icontenidos_minimos_plan_estudio {
   horasPractica?: number | 0;
   horasTeoria?: number | 0;
   exigencia: string;
-  asignaturaId: number;
-  asignatura?: Iasignatura|null; //Tabla relacionada
-  intensidadId: number;
-  intensidad?: Iintensidad|null; //Tabla relacionada
+  //Agregar Plan de Estudio
+  planEstudioId: Iplan_estudio|null; //Pega la entidad entera
+  // planEstudio?: Iasignatura|null; //Tabla relacionada
+  asignaturaId: Iasignatura|null; //Pega la entidad entera
+  // asignatura?: Iasignatura|null; //Tabla relacionada
+  intensidadId: number|null; //Trae solamente el id
+  // intensidad?: Iintensidad|null; //Tabla relacionada
 }
-
-// {
-//   "contenidoMinimoPlanEstudioId": "<integer>",
-//   "nombre": "",
-//   "horasPractica": "",
-//   "horasTeoria": "",
-//   "exigencia": "O", //O|R
-//   "asignaturaId": "",
-//   "intensidadId": ""
-// }
-

@@ -47,26 +47,6 @@ export const IntensidadForm: React.FC<Props> = ({ open, onClose, editState }) =>
         <Dialog open={open} onClose={onClose}>
             <DialogTitle>{editState ? "Editar" : "Agregar"}</DialogTitle>
             <DialogContent>
-                {/* <Controller
-                    name="nivel"
-                    control={control}
-                    rules={{
-                        required: "Campo obligatorio",
-                        min: { value: 1, message: "Debe ser mayor a 0" },
-                        max: { value: 9999, message: "Debe ser menor o igual a 9999" }
-                    }}
-                    render={({ field }) => (
-                        <TextField
-                            {...field}
-                            margin="dense"
-                            label="Nivel"
-                            type="number"
-                            fullWidth
-                            error={!!errors.nivel}
-                            helperText={errors.nivel?.message}
-                        />
-                    )}
-                /> */}
                 <Controller
                     name="nivel"
                     control={control}
@@ -95,6 +75,7 @@ export const IntensidadForm: React.FC<Props> = ({ open, onClose, editState }) =>
                             {...field}
                             margin="dense"
                             label="Descripción"
+                            multiline
                             fullWidth
                             error={!!errors.descripcion}
                             helperText={errors.descripcion?.message}
