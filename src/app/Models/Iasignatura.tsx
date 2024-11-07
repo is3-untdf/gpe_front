@@ -5,7 +5,6 @@ export interface Iasignatura {
   codigo: string;
   nombre: string;
   cargaHoraria: number;
-  planEstudioId?: Iplan_estudio | null; //Ya me trae el dato.
-
-  //   /dependencias
+  planEstudioId?: number | 0; //dependencias: trae el dato, si es un getAll trae el numero de Id.
+  planEstudio?: Iplan_estudio | null; //dependencias: trae el dato, si es un getAll trae el numero de Id.
 }

@@ -15,3 +15,11 @@ export interface Icontenidos_minimos_plan_estudio {
   intensidadId: number|null; //Trae solamente el id
   // intensidad?: Iintensidad|null; //Tabla relacionada
 }
+
+// "contenidoMinimoPlanEstudioId": "<integer>",
+// "nombre": "",
+// "horasPractica": "",
+// "horasTeoria": "",
+// "exigencia": "O",
+// "asignaturaId": "",
+// "intensidadId": ""

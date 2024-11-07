@@ -10,6 +10,7 @@ import myImage from "./images/logo_untdf.png";
 import { AutoStories, Description, Functions, SignalCellularConnectedNoInternet1Bar, Subscriptions } from '@mui/icons-material';
 import { Inicio } from './app/Pages/Inicio';
 import { Intensidad } from './app/Pages/Intensidad';
+import { useEffect } from 'react';
 
 const NAVIGATION: Navigation = [
   {
@@ -64,6 +65,9 @@ export default function DashboardLayoutBranding(props: DemoProps) {
   const router = useDemoRouter('/');
   const demoWindow = window !== undefined ? window() : undefined;
 
+  useEffect (() => {
+    document.title = "Sistema Plan de Estudio";
+  })
   return (
     <AppProvider
       navigation={NAVIGATION}

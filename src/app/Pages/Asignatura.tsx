@@ -8,26 +8,26 @@ import { Add, Delete, Edit } from "@mui/icons-material";
 import { Iasignatura } from "../Models/Iasignatura";
 import AlertDialogEliminar from "../Hooks/AlertDialogEliminar";
 
-export const Asignatura = () => {
-  // Estilos Tabla
-  const StyledTableCell = styled(TableCell)(({ theme }) => ({
-    [`&.${tableCellClasses.head}`]: {
-      backgroundColor: theme.palette.common.black,
-      color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-      fontSize: 14,
-    },
-  }));
-  const StyledTableRow = styled(TableRow)(({ theme }) => ({
-    "&:nth-of-type(odd)": {
-      backgroundColor: theme.palette.action.hover,
-    },
-    "&:last-child td, &:last-child th": {
-      border: 0,
-    },
-  }));
+// Estilos Tabla
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
 
+export const Asignatura = () => {
   // Leer
   const dispatch = useDispatch<AppDispatch>();
   const { asignaturas = [] } = useSelector((state: RootState) => state.asignatura);
@@ -70,6 +70,7 @@ export const Asignatura = () => {
               <StyledTableCell>Código</StyledTableCell>
               <StyledTableCell>Nombre</StyledTableCell>
               <StyledTableCell>Carga Horaria</StyledTableCell>
+              <StyledTableCell>Plan de Estudio</StyledTableCell>
               <StyledTableCell>-Acción-</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -80,17 +81,18 @@ export const Asignatura = () => {
                 <StyledTableCell>{row.codigo}</StyledTableCell>
                 <StyledTableCell>{row.nombre}</StyledTableCell>
                 <StyledTableCell>{row.cargaHoraria}</StyledTableCell>
+                <StyledTableCell>{row.planEstudio?.nombre}</StyledTableCell>
                 <StyledTableCell style={{ display: "flex" }}>
                   {/* Botón Editar */}
                   <Tooltip title="Editar" >
                     <Fab color="secondary" size="small" style={{ marginRight: "20px" }} onClick={() => (setEditState(row), setModalAbrir(true))} >
-                      <Edit/>
+                      <Edit />
                     </Fab>
                   </Tooltip>
                   {/* Boton Eliminar */}
                   <Tooltip title="Eliminar">
-                    <Fab color="error" size="small" onClick={() => {setDeleteId(row.asignaturaId); setOpenDialog(true)}} >
-                      <Delete/>
+                    <Fab color="error" size="small" onClick={() => { setDeleteId(row.asignaturaId); setOpenDialog(true) }} >
+                      <Delete />
                     </Fab>
                   </Tooltip>
                 </StyledTableCell>
@@ -99,7 +101,7 @@ export const Asignatura = () => {
           </TableBody>
         </Table>
       </TableContainer>
-       {/* Modal Eliminar */}
+      {/* Modal Eliminar */}
       <AlertDialogEliminar
         open={openDialog}
         onClose={handleDialogClose}

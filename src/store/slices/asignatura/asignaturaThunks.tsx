@@ -3,9 +3,11 @@ import { Iasignatura } from "../../../app/Models/Iasignatura";
 import type { AppDispatch } from "../../store";
 import { setAsignaturas } from "./asignaturaSlice";
 
+//Asignaturas con Dependencias
 export const getAsignaturas = () => {
   return async (dispatch: AppDispatch) => {
-    const { data } = await(Api.get(`/asignaturas`));
+    const { data } = await(Api.get(`/asignaturas/dependencias`));
+    // const { data } = await(Api.get(`/asignaturas`));
     dispatch(setAsignaturas({ asignaturas: data}));
   };
 };

@@ -41,3 +41,13 @@ export const deletePlanDeEstudio = (data: number) => {
   };
 };
 
+export const clonarPlanDeEstudio = (data: Iplan_estudio) => {
+  return async (dispatch: AppDispatch) => {
+    try {
+      await Api.post('/planes-de-estudio/clonar', data);
+      dispatch(getPlanDeEstudios()); // Para refrescar la lista después de agregar
+    } catch (error) {
+      console.error("Error en post:", error);
+    }
+  };
+};
