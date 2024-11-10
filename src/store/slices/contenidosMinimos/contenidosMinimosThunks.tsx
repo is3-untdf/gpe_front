@@ -5,7 +5,7 @@ import { setContenidosMinimos } from "./contenidosMinimosSlice";
 
 export const getContenidosMinimos = () => {
   return async (dispatch: AppDispatch) => {
-    const { data } = await(Api.get(`/contenido-minimos-de-planes-de-estudio`));
+    const { data } = await(Api.get(`/contenido-minimos-de-planes-de-estudio/dependencias`));
     dispatch(setContenidosMinimos({ contenidosMinimos: data}));
   };
 };

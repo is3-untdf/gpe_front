@@ -50,21 +50,19 @@ export const Intensidad = () => {
     setOpenDialog(false);
   };
 
-  useEffect(() => {
-    console.log(intensidades)
-  }, [intensidades])
-
   return (
     <div style={{ paddingLeft: "2%", paddingRight: "2%" }}>
-      <h2>Intensidad</h2>
-      <div style={{ textAlign: "end", paddingBottom: "1%" }}>
-        {/* Agregar */}
-        <Tooltip title="Agregar" aria-label="add">
-          <Fab color="primary" onClick={() => (setModalAbrir(true), setEditState(null))}>
-            <Add />
-          </Fab>
-        </Tooltip>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: '79vw', height: '10vh' }}>
+        <h2 style={{ textAlign: "left" }}>Intensidad</h2>
+        <div style={{ textAlign: "end", paddingRight: "2%" }}>
+          <Tooltip title="Agregar" aria-label="add">
+            <Fab color="primary" onClick={() => (setModalAbrir(true), setEditState(null))}>
+              <Add />
+            </Fab>
+          </Tooltip>
+        </div>
       </div>
+
       {/* Tabla */}
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -86,15 +84,15 @@ export const Intensidad = () => {
                   {/* Botón Editar */}
                   <Tooltip title="Editar" >
                     <Fab color="secondary" size="small" style={{ marginRight: "20px" }} onClick={() => (setEditState(row), setModalAbrir(true))}>
-                      <Edit/>
+                      <Edit />
                     </Fab>
                   </Tooltip>
                   {/* Boton Eliminar */}
                   <Tooltip title="Eliminar">
                     <Fab color="error" size="small" onClick={() => { setDeleteId(row.intensidadId); setOpenDialog(true) }} >
-                      <Delete/>
+                      <Delete />
                     </Fab>
-                  </Tooltip>                 
+                  </Tooltip>
                 </StyledTableCell>
               </StyledTableRow>
             ))}

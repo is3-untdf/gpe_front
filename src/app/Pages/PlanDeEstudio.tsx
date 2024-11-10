@@ -38,7 +38,7 @@ export const PlanDeEstudio = () => {
   // Agregar
   const [modalAbrir, setModalAbrir] = useState(false);
   const [editState, setEditState] = useState<Iplan_estudio | null>(null);
-  
+
   //Clonar
   const [clonar, setClonar] = useState(false);
 
@@ -55,15 +55,17 @@ export const PlanDeEstudio = () => {
 
   return (
     <div style={{ paddingLeft: "2%", paddingRight: "2%" }}>
-      <h2>Plan de Estudio</h2>
-      <div style={{ textAlign: "end", paddingBottom: "1%" }}>
-        {/* Agregar */}
-        <Tooltip title="Agregar" aria-label="add">
-          <Fab color="primary" onClick={() => (setModalAbrir(true), setEditState(null))}>
-            <Add />
-          </Fab>
-        </Tooltip>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", width: '79vw', height: '10vh' }}>
+        <h2 style={{ textAlign: "left" }}>Plan de Estudio</h2>
+        <div style={{ textAlign: "end", paddingRight: "2%" }}>
+          <Tooltip title="Agregar" aria-label="add">
+            <Fab color="primary" onClick={() => (setModalAbrir(true), setEditState(null))}>
+              <Add />
+            </Fab>
+          </Tooltip>
+        </div>
       </div>
+
       {/* Tabla */}
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
