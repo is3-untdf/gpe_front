@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { RootState, AppDispatch } from "../../store/store";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteAsignatura, getAsignaturas } from '../../store/slices/asignatura/asignaturaThunks';
+import { deleteAsignatura, getAsignaturasDependencias } from '../../store/slices/asignatura/asignaturaThunks';
 import { Fab, Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Tooltip } from "@mui/material";
 import { AsignaturaForm } from "../Components/AsignaturaForm";
 import { Add, Delete, Edit } from "@mui/icons-material";
@@ -32,7 +32,7 @@ export const Asignatura = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { asignaturas = [] } = useSelector((state: RootState) => state.asignatura);
   useEffect(() => {
-    dispatch(getAsignaturas());
+    dispatch(getAsignaturasDependencias());
   }, [dispatch]);
 
   // Agregar

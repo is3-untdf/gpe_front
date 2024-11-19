@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { Icontenidos_minimos_plan_estudio } from "../Models/Icontenidos_minimos_plan_estudio";
 import { postContenidosMinimos, putContenidosMinimos } from "../../store/slices/contenidosMinimos/contenidosMinimosThunks";
-import { getAsignaturas } from "../../store/slices/asignatura/asignaturaThunks";
+import { getAsignaturasDependencias } from "../../store/slices/asignatura/asignaturaThunks";
 import { getIntensidades } from "../../store/slices/intensidad/intensidadThunks";
 import { getPlanDeEstudios } from "../../store/slices/planDeEstudio/planDeEstudioThunks";
 
@@ -24,7 +24,7 @@ export const ContenidosMinimosForm: React.FC<Props> = ({ open, onClose, editStat
     const { planDeEstudios = [] } = useSelector((state: RootState) => state.planDeEstudio);
     const { intensidades = [] } = useSelector((state: RootState) => state.intensidades);
     useEffect(() => {
-        dispatch(getAsignaturas());
+        dispatch(getAsignaturasDependencias());
         dispatch(getPlanDeEstudios());
         dispatch(getIntensidades());
     }, [dispatch]);

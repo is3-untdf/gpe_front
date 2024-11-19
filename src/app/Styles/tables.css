@@ -1,0 +1,28 @@
+/* ContenidosMinimos.css */
+.container {
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 79vw;
+    height: 10vh;
+  }
+  
+  .filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .actions {
+    display: flex;
+  }
+  
+  .table-action {
+    margin-right: 20px;
+  }
+  

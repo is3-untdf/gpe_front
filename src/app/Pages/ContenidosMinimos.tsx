@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Fab, Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Tooltip, Select, MenuItem, InputLabel, FormControl } from "@mui/material";
 import { Add, Delete, Edit } from "@mui/icons-material";
 import AlertDialogEliminar from "../Hooks/AlertDialogEliminar";
-import { deleteContenidosMinimos, getContenidosMinimos } from "../../store/slices/contenidosMinimos/contenidosMinimosThunks";
+import { deleteContenidosMinimos, getContenidosMinimosDependencias } from "../../store/slices/contenidosMinimos/contenidosMinimosThunks";
 import { Icontenidos_minimos_plan_estudio } from "../Models/Icontenidos_minimos_plan_estudio";
 import { ContenidosMinimosForm } from "../Components/ContenidosMinimosForm";
 import type { RootState, AppDispatch } from "../../store/store";
@@ -32,15 +32,14 @@ export const ContenidosMinimos = () => {
 
   //Leer
   const dispatch = useDispatch<AppDispatch>();
-  const { contenidosMinimos = [] } = useSelector((state: RootState) => state.contenidosMinimos);
   const { asignaturas = [] } = useSelector((state: RootState) => state.asignatura);
   const { planDeEstudios = [] } = useSelector((state: RootState) => state.planDeEstudio);
+  const { contenidosMinimos = [] } = useSelector((state: RootState) => state.contenidosMinimos);
   useEffect(() => {
-    dispatch(getContenidosMinimos());
     dispatch(getAsignaturas());
     dispatch(getPlanDeEstudios());
+    dispatch(getContenidosMinimosDependencias());
   }, [dispatch]);
-
 
   //Agregar-
   const [modalAbrir, setModalAbrir] = useState(false);

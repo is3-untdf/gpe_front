@@ -3,6 +3,7 @@ import { asignaturaSlice } from './slices/asignatura/asignaturaSlice';
 import { planDeEstudioSlice } from './slices/planDeEstudio/planDeEstudioSlice';
 import { intensidadSlice } from './slices/intensidad/intensidadSlice';
 import { contenidosMinimosSlice } from './slices/contenidosMinimos/contenidosMinimosSlice';
+import { recomendacionCurricularSlice } from './slices/recomendacionCurricular/recomendacionCurricularSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     planDeEstudio: planDeEstudioSlice.reducer,
     intensidades: intensidadSlice.reducer,
     contenidosMinimos: contenidosMinimosSlice.reducer,
+    recomendacionCurricular: recomendacionCurricularSlice.reducer,
   },
 })
 

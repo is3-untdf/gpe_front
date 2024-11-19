@@ -38,6 +38,11 @@ const NAVIGATION: Navigation = [
     title: 'Play',
     icon: <Subscriptions />,
   },
+  // {
+  //   segment: 'contenidoMinimo',
+  //   title: 'Contenido Mínimo',
+  //   icon: <Description />,
+  // },
 ];
 
 const demoTheme = createTheme({
@@ -85,6 +90,7 @@ export default function DashboardLayoutBranding(props: DemoProps) {
         {router.pathname === '/contenidosMinimos' && <ContenidosMinimos />}
         {router.pathname === '/intensidad' && <Intensidad />}
         {router.pathname === '/play' && <Play />}
+        {/* {router.pathname === '/contenidoMinimo' && <ContenidoMinimo />} */}
         {router.pathname === '/' && <Inicio />}
       </DashboardLayout>
     </AppProvider>

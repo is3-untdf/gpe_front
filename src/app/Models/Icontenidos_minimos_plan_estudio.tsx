@@ -9,10 +9,10 @@ export interface Icontenidos_minimos_plan_estudio {
   horasTeoria?: number | null;
   exigencia?: string | null;
   //Tabla relacionada
-  asignaturaId?: number | null; 
+  asignaturaId: number; 
   asignatura?: Iasignatura | null; 
-  planEstudioId?: number | null;
+  planEstudioId: number;
   planEstudio?: Iplan_estudio | null;
-  intensidadId?: number | null;
+  intensidadId: number;
   intensidad?: Iintensidad | null;
 }
