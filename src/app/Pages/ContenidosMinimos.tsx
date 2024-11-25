@@ -36,10 +36,10 @@ export const ContenidosMinimos = () => {
   const { planDeEstudios = [] } = useSelector((state: RootState) => state.planDeEstudio);
   const { contenidosMinimos = [] } = useSelector((state: RootState) => state.contenidosMinimos);
   useEffect(() => {
-    dispatch(getAsignaturas());
-    dispatch(getPlanDeEstudios());
-    dispatch(getContenidosMinimosDependencias());
-  }, [dispatch]);
+    if (asignaturas.length === 0) {dispatch(getAsignaturas())};
+    if (planDeEstudios.length === 0) {dispatch(getPlanDeEstudios())};
+    if (contenidosMinimos.length === 0) {dispatch(getContenidosMinimosDependencias())};
+  }, [dispatch, asignaturas.length, planDeEstudios.length, contenidosMinimos.length]);
 
   //Agregar-
   const [modalAbrir, setModalAbrir] = useState(false);

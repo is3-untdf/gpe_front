@@ -7,6 +7,9 @@ import Paper from "@mui/material/Paper";
 import { Icontenidos_minimos_plan_estudio } from "../Models/Icontenidos_minimos_plan_estudio";
 import { getRecomendacionCurriculares } from "../../store/slices/recomendacionCurricular/recomendacionCurricularThunks";
 import { Irecomendacion_curricular } from "../Models/Irecomendacion_curricular";
+import { DialogActions, Fab, Tooltip } from "@mui/material";
+import { Add } from "@mui/icons-material";
+import { toast, ToastContainer } from "react-toastify";
 
 export const Play = () => {
 
@@ -25,6 +28,7 @@ export const Play = () => {
     { field: 'nombre', headerName: 'Nombre', flex: 1 },
   ];
   const paginationModelContenidosMinimos = { page: 0, pageSize: 5 };
+
   // Columnas de la tabla Recomendación Curricular
   const columnsRecomendacionCurricular: GridColDef[] = [
     { field: 'recomendacionCurricularId', headerName: 'Id', flex: 0.1 },
@@ -36,11 +40,8 @@ export const Play = () => {
   const [contenidosMinimosSelect, setContenidosMinimosSelect] = useState<Icontenidos_minimos_plan_estudio[]>([]);
   const SelectionContenidosMinimos = (selectionModel: GridRowSelectionModel) => {
     const selectedData = contenidosMinimos.filter((row) => selectionModel.includes(row.contenidoMinimoPlanEstudioId));
-    setContenidosMinimosSelect(selectedData); // Guarda todos los registros seleccionados en el estado
+    setContenidosMinimosSelect(selectedData);
   };
-  useEffect(() => {
-    console.log(contenidosMinimosSelect);
-  }, [contenidosMinimosSelect])
 
   // Estado para seleccionar solo una fila de Recomendaciones Curriculares
   const [recomendacionesCurricularesSelect, setRecomenacionesCurricularesSelect] = useState<Irecomendacion_curricular[]>([]);
@@ -48,16 +49,41 @@ export const Play = () => {
     const selectedData = recomendacionCurriculares.filter((row) => selectionModel.includes(row.recomendacionCurricularId));
     setRecomenacionesCurricularesSelect(selectedData);
   };
-  useEffect(() => {
-    console.log(recomendacionesCurricularesSelect);
-  }, [recomendacionesCurricularesSelect]);
 
+  // Agregar
+  // const [modalAbrir, setModalAbrir] = useState(false);
+  const agregar = () => {
+    console.log(contenidosMinimosSelect);
+    console.log(recomendacionesCurricularesSelect);
+    if (recomendacionesCurricularesSelect.length == 0) {
+      toast.error("Seleccione una Recomendación Curricular");
+      return;
+    }
+    if (contenidosMinimosSelect.length == 0) {
+      toast.error("Seleccione un Contenido Mínimo");
+      return;
+    }
+
+    console.log("LLENOS  eeeeeeeeeeeeeee")
+
+  }
 
   return (
     // <div style={{ paddingLeft: "1%", paddingRight: "1%" }}>
     <div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr", width: '81vw', height: '10vh' }}>
-        <div style={{ border: "1px solid black" }}>Dashboards</div>
+        {/* <h2 style={{ textAlign: "left" }}>Dashboard</h2> */}
+        {/* <div style={{ border: "1px solid black" }}>Dashboards</div> */}
+        <div style={{ textAlign: "end", paddingRight: "1%", paddingTop: "1%" }}>
+          <DialogActions>
+            <Tooltip title="Agregar" aria-label="add">
+              <Fab color="primary" onClick={() => (agregar())}>
+                <Add />
+              </Fab>
+            </Tooltip>
+            <ToastContainer />
+          </DialogActions>
+        </div>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", width: '81vw', height: '52vh' }}>
         <div style={{ border: "1px solid black" }}>Recomendaciones Curriculares
@@ -88,7 +114,7 @@ export const Play = () => {
               getRowId={(row) => row.contenidoMinimoPlanEstudioId}
               initialState={{ pagination: { paginationModel: paginationModelContenidosMinimos } }}
               pageSizeOptions={[5, 10, 50, 100]}
-              checkboxSelection
+              // checkboxSelection
               onRowSelectionModelChange={(newSelectionModel) => SelectionContenidosMinimos([...newSelectionModel])}
               disableColumnResize
               sx={{
