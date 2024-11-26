@@ -7,6 +7,7 @@ import { AsignaturaForm } from "../Components/AsignaturaForm";
 import { Add, Delete, Edit } from "@mui/icons-material";
 import { Iasignatura } from "../Models/Iasignatura";
 import AlertDialogEliminar from "../Hooks/AlertDialogEliminar";
+import { toast } from "react-toastify";
 
 // Estilos Tabla
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -48,6 +49,7 @@ export const Asignatura = () => {
     }
     setDeleteId(null);
     setOpenDialog(false);
+    toast.success("Elemento eliminado exitosamente");
   };
 
   return (
@@ -117,4 +119,3 @@ export const Asignatura = () => {
     </div>
   )
 }
-

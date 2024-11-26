@@ -14,7 +14,6 @@ interface Props {
 }
 
 export const AsignaturaForm: React.FC<Props> = ({ open, onClose, editState }) => {
-  // console.log(editState);
 
   //Leer
   const dispatch = useDispatch<AppDispatch>();

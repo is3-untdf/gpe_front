@@ -85,7 +85,7 @@ export const ContenidosMinimosForm: React.FC<Props> = ({ open, onClose, editStat
                         name="horasPractica"
                         control={control}
                         rules={{
-                            required: "El campo es obligatoria",
+                            required: "El campo es obligatorio",
                             min: { value: 1, message: "Debe ser mayor a 0" },
                             max: { value: 9999, message: "Debe ser menor o igual a 9999" }
                         }}
@@ -105,7 +105,7 @@ export const ContenidosMinimosForm: React.FC<Props> = ({ open, onClose, editStat
                         name="horasTeoria"
                         control={control}
                         rules={{
-                            required: "El campo es obligatoria",
+                            required: "El campo es obligatorio",
                             min: { value: 1, message: "Debe ser mayor a 0" },
                             max: { value: 9999, message: "Debe ser menor o igual a 9999" }
                         }}
