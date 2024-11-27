@@ -37,11 +37,11 @@ export const getRecomendacionCurricularesXContenidosMinimosByContenidosMinimos =
 };
 
 export const putRecomendacionCurricularesXContenidosMinimos = (data: Irecomendacion_curricular_x_contenido_minimo_plan_estudio) => {
-  // return async (dispatch: AppDispatch) => {
-  return async () => {
+  return async (dispatch: AppDispatch) => {
+  // return async () => {
     try {
       await Api.put(`/recomendaciones-curriculares-x-contenidos-minimos-planes-estudio/${data.recomendacionCurricularXContenidoMinimoPlanEstudioId}`, data);
-      // dispatch(getIntensidades()); // Para refrescar la lista después de actualizar
+      dispatch(getRecomendacionCurricularesXContenidosMinimosByRecomendacionesCurriculares(data.recomendacionCurricularId)); // Para refrescar la lista después de actualizar
     } catch (error) {
       console.error("Error en put: ", error);
     }
@@ -49,23 +49,23 @@ export const putRecomendacionCurricularesXContenidosMinimos = (data: Irecomendac
 };
 
 export const postRecomendacionCurricularesXContenidosMinimos = (data: Irecomendacion_curricular_x_contenido_minimo_plan_estudio) => {
-  // return async (dispatch: AppDispatch) => {
-  return async () => {
+  return async (dispatch: AppDispatch) => {
+  // return async () => {
     try {
       await Api.post('/recomendaciones-curriculares-x-contenidos-minimos-planes-estudio', data);
-      // dispatch(getIntensidades()); // Para refrescar la lista después de agregar
+      dispatch(getRecomendacionCurricularesXContenidosMinimosByRecomendacionesCurriculares(data.recomendacionCurricularId)); // Para refrescar la lista después de actualizar
     } catch (error) {
       console.error("Error en post: ", error);
     }
   };
 };
 
-export const deleteRecomendacionCurricularesXContenidosMinimos = (data: number) => {
-  // return async (dispatch: AppDispatch) => {
-  return async () => {
+export const deleteRecomendacionCurricularesXContenidosMinimos = (data: Irecomendacion_curricular_x_contenido_minimo_plan_estudio) => {
+  return async (dispatch: AppDispatch) => {
+  // return async () => {
     try {
-      await Api.delete(`/recomendaciones-curriculares-x-contenidos-minimos-planes-estudio/${data}`);
-      // dispatch(getIntensidades()); // Para refrescar la lista después de actualizar
+      await Api.delete(`/recomendaciones-curriculares-x-contenidos-minimos-planes-estudio/${data.recomendacionCurricularXContenidoMinimoPlanEstudioId}`);
+      dispatch(getRecomendacionCurricularesXContenidosMinimosByRecomendacionesCurriculares(data.recomendacionCurricularId)); // Para refrescar la lista después de actualizar
     } catch (error) {
       console.error("Error en delete: ", error);
     }

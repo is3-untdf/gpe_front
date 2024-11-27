@@ -1,8 +1,6 @@
 import { Controller, useForm } from "react-hook-form";
 import { Irecomendacion_curricular_x_contenido_minimo_plan_estudio } from "../Models/Irecomendacion_curricular_x_contenido_minimo_plan_estudio";
 import { useEffect } from "react";
-import { Icontenidos_minimos_plan_estudio } from "../Models/Icontenidos_minimos_plan_estudio";
-import { Irecomendacion_curricular } from "../Models/Irecomendacion_curricular";
 import {
   postRecomendacionCurricularesXContenidosMinimos,
   putRecomendacionCurricularesXContenidosMinimos,
@@ -26,45 +24,42 @@ import { getIntensidades } from "../../store/slices/intensidad/intensidadThunks"
 interface Props {
   open: boolean;
   onClose: () => void;
-  editState: Irecomendacion_curricular_x_contenido_minimo_plan_estudio | null; //Editar (si aplica)
-  recomendacionCurriculares: Irecomendacion_curricular[] | null;
-  contenidosMinimos: Icontenidos_minimos_plan_estudio[] | null;
+  editState?: Irecomendacion_curricular_x_contenido_minimo_plan_estudio | null; //Editar (si aplica)
+  contenidosMinimosSelect: number;
+  recomendacionesCurricularesSelect: number;
 }
 
 export const PlayForm: React.FC<Props> = ({
   open,
   onClose,
   editState,
-  recomendacionCurriculares,
-  contenidosMinimos,
+  contenidosMinimosSelect,
+  recomendacionesCurricularesSelect
 }) => {
+
+  //Leer
   const dispatch = useDispatch<AppDispatch>();
-  const { intensidades = [] } = useSelector(
-    (state: RootState) => state.intensidades
-  );
+  const { contenidosMinimos = [] } = useSelector((state: RootState) => state.contenidosMinimos);
+  const { recomendacionCurriculares = [] } = useSelector((state: RootState) => state.recomendacionCurricular);
+  const { intensidades = [] } = useSelector((state: RootState) => state.intensidades);
   useEffect(() => {
     if (intensidades.length == 0) {
       dispatch(getIntensidades());
     }
-  }, [dispatch]);
+  }, [dispatch, intensidades.length]);
 
   // Hook useForm de react-hook-form
   const inicialState = {
     recomendacionCurricularXContenidoMinimoPlanEstudioId: 0,
-    recomendacionCurricularId: undefined,
-    contenidoMinimoPlanEstudioId: undefined,
-    horasPractica: "",
-    horasTeoria: "",
+    recomendacionCurricularId: recomendacionesCurricularesSelect,
+    contenidoMinimoPlanEstudioId: contenidosMinimosSelect,
+    intensidadId: 1,
+    horasPractica: 0,
+    horasTeoria: 0,
     exigencia: "",
-    intensidadId: 0,
     observaciones: "",
   };
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<Irecomendacion_curricular_x_contenido_minimo_plan_estudio>({
+  const { control, handleSubmit, formState: { errors }, reset } = useForm<Irecomendacion_curricular_x_contenido_minimo_plan_estudio>({
     defaultValues: inicialState,
   });
 
@@ -80,12 +75,14 @@ export const PlayForm: React.FC<Props> = ({
   const onSubmit = (
     data: Irecomendacion_curricular_x_contenido_minimo_plan_estudio
   ) => {
+    data.contenidoMinimoPlanEstudioId = contenidosMinimosSelect;
+    data.recomendacionCurricularId = recomendacionesCurricularesSelect;
     if (editState) {
       dispatch(putRecomendacionCurricularesXContenidosMinimos(data));
     } else {
       dispatch(postRecomendacionCurricularesXContenidosMinimos(data));
     }
-    onClose(); // Cerrar modal después de agregar/editar
+    onClose();
   };
 
   return (
@@ -124,9 +121,8 @@ export const PlayForm: React.FC<Props> = ({
             </p>
           )}
         </FormControl>
-
         <FormControl fullWidth margin="dense">
-          <InputLabel>Contenidos Mínimos</InputLabel>
+          <InputLabel>Contenido Mínimo</InputLabel>
           <Controller
             name="contenidoMinimoPlanEstudioId"
             control={control}
@@ -155,7 +151,6 @@ export const PlayForm: React.FC<Props> = ({
             </p>
           )}
         </FormControl>
-
         <Controller
           name="horasPractica"
           control={control}

@@ -1,13 +1,13 @@
-import { Icontenidos_minimos_plan_estudio } from "./Icontenidos_minimos_plan_estudio";
-import { Irecomendacion_curricular } from "./Irecomendacion_curricular";
 
 export interface Irecomendacion_curricular_x_contenido_minimo_plan_estudio {
   recomendacionCurricularXContenidoMinimoPlanEstudioId: number;
-  recomendacionCurricularId: Irecomendacion_curricular;
-  contenidoMinimoPlanEstudioId: Icontenidos_minimos_plan_estudio;
+  
+  recomendacionCurricularId: number; //Id de relación con RC
+  contenidoMinimoPlanEstudioId: number; //Id de relación con CM
+  intensidadId: number; //Id de relación con I
+
   horasPractica: number;
   horasTeoria: number;
   exigencia: string;
-  intensidadId: number;
   observaciones: string;
 }
