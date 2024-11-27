@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { Icontenidos_minimos_plan_estudio } from "../Models/Icontenidos_minimos_plan_estudio";
 import { postContenidosMinimos, putContenidosMinimos } from "../../store/slices/contenidosMinimos/contenidosMinimosThunks";
-import { getAsignaturasDependencias } from "../../store/slices/asignatura/asignaturaThunks";
-import { getIntensidades } from "../../store/slices/intensidad/intensidadThunks";
-import { getPlanDeEstudios } from "../../store/slices/planDeEstudio/planDeEstudioThunks";
+// import { getAsignaturasDependencias } from "../../store/slices/asignatura/asignaturaThunks";
+// import { getIntensidades } from "../../store/slices/intensidad/intensidadThunks";
+// import { getPlanDeEstudios } from "../../store/slices/planDeEstudio/planDeEstudioThunks";
 
 interface Props {
     open: boolean;
@@ -23,11 +23,11 @@ export const ContenidosMinimosForm: React.FC<Props> = ({ open, onClose, editStat
     const { asignaturas = [] } = useSelector((state: RootState) => state.asignatura);
     const { planDeEstudios = [] } = useSelector((state: RootState) => state.planDeEstudio);
     const { intensidades = [] } = useSelector((state: RootState) => state.intensidades);
-    useEffect(() => {
-        dispatch(getAsignaturasDependencias());
-        dispatch(getPlanDeEstudios());
-        dispatch(getIntensidades());
-    }, [dispatch]);
+    // useEffect(() => {
+    //     dispatch(getAsignaturasDependencias());
+    //     dispatch(getPlanDeEstudios());
+    //     dispatch(getIntensidades());
+    // }, [dispatch]);
 
     // Hook useForm de react-hook-form
     const inicialState = {
@@ -65,82 +65,83 @@ export const ContenidosMinimosForm: React.FC<Props> = ({ open, onClose, editStat
         <Dialog open={open} onClose={onClose}>
             <DialogTitle>{editState ? "Editar" : "Agregar"}</DialogTitle>
             {/* {asignaturas && planDeEstudios && intensidades && ( */}
-                <DialogContent>
-                    <Controller
-                        name="nombre"
-                        control={control}
-                        rules={{ required: "El nombre es obligatorio" }}
-                        render={({ field }) => (
-                            <TextField
-                                {...field}
-                                margin="dense"
-                                label="Nombre"
-                                fullWidth
-                                error={!!errors.nombre}
-                                helperText={errors.nombre?.message}
-                            />
-                        )}
-                    />
-                    <Controller
-                        name="horasPractica"
-                        control={control}
-                        rules={{
-                            required: "El campo es obligatorio",
-                            min: { value: 1, message: "Debe ser mayor a 0" },
-                            max: { value: 9999, message: "Debe ser menor o igual a 9999" }
-                        }}
-                        render={({ field }) => (
-                            <TextField
-                                {...field}
-                                margin="dense"
-                                label="Horas de Práctica"
-                                type="number"
-                                fullWidth
-                                error={!!errors.horasPractica}
-                                helperText={errors.horasPractica?.message}
-                            />
-                        )}
-                    />
-                    <Controller
-                        name="horasTeoria"
-                        control={control}
-                        rules={{
-                            required: "El campo es obligatorio",
-                            min: { value: 1, message: "Debe ser mayor a 0" },
-                            max: { value: 9999, message: "Debe ser menor o igual a 9999" }
-                        }}
-                        render={({ field }) => (
-                            <TextField
-                                {...field}
-                                margin="dense"
-                                label="Horas de Teoría"
-                                type="number"
-                                fullWidth
-                                error={!!errors.horasTeoria}
-                                helperText={errors.horasTeoria?.message}
-                            />
-                        )}
-                    />
-                    <Controller
-                        name="exigencia"
-                        control={control}
-                        rules={{
-                            required: "El nombre es obligatorio",
-                            minLength: { value: 1, message: "Debe ser igual a 1" },
-                            maxLength: { value: 1, message: "Debe ser igual a 1" },
-                            validate: (value) => (value === "O" || value === "R") || "Debe ser O o R"
-                        }}
-                        render={({ field }) => (
-                            <TextField
-                                {...field}
-                                margin="dense"
-                                label="Exigencia O | R"
-                                fullWidth
-                                error={!!errors.exigencia}
-                                helperText={errors.exigencia?.message}
-                            />
-                        )}
-                    />
+            <DialogContent>
+                <Controller
+                    name="nombre"
+                    control={control}
+                    rules={{ required: "El nombre es obligatorio" }}
+                    render={({ field }) => (
+                        <TextField
+                            {...field}
+                            margin="dense"
+                            label="Nombre"
+                            fullWidth
+                            error={!!errors.nombre}
+                            helperText={errors.nombre?.message}
+                        />
+                    )}
+                />
+                <Controller
+                    name="horasPractica"
+                    control={control}
+                    rules={{
+                        required: "El campo es obligatorio",
+                        min: { value: 1, message: "Debe ser mayor a 0" },
+                        max: { value: 9999, message: "Debe ser menor o igual a 9999" }
+                    }}
+                    render={({ field }) => (
+                        <TextField
+                            {...field}
+                            margin="dense"
+                            label="Horas de Práctica"
+                            type="number"
+                            fullWidth
+                            error={!!errors.horasPractica}
+                            helperText={errors.horasPractica?.message}
+                        />
+                    )}
+                />
+                <Controller
+                    name="horasTeoria"
+                    control={control}
+                    rules={{
+                        required: "El campo es obligatorio",
+                        min: { value: 1, message: "Debe ser mayor a 0" },
+                        max: { value: 9999, message: "Debe ser menor o igual a 9999" }
+                    }}
+                    render={({ field }) => (
+                        <TextField
+                            {...field}
+                            margin="dense"
+                            label="Horas de Teoría"
+                            type="number"
+                            fullWidth
+                            error={!!errors.horasTeoria}
+                            helperText={errors.horasTeoria?.message}
+                        />
+                    )}
+                />
+                <Controller
+                    name="exigencia"
+                    control={control}
+                    rules={{
+                        required: "El nombre es obligatorio",
+                        minLength: { value: 1, message: "Debe ser igual a 1" },
+                        maxLength: { value: 1, message: "Debe ser igual a 1" },
+                        validate: (value) => (value === "O" || value === "R") || "Debe ser O o R"
+                    }}
+                    render={({ field }) => (
+                        <TextField
+                            {...field}
+                            margin="dense"
+                            label="Exigencia O | R"
+                            fullWidth
+                            error={!!errors.exigencia}
+                            helperText={errors.exigencia?.message}
+                        />
+                    )}
+                />
+                {asignaturas && (
                     <FormControl fullWidth margin="dense">
                         <InputLabel>Asignatura</InputLabel>
                         <Controller
@@ -163,7 +164,9 @@ export const ContenidosMinimosForm: React.FC<Props> = ({ open, onClose, editStat
                         />
                         {errors.asignaturaId && <p style={{ color: "red" }}>{errors.asignaturaId.message}</p>}
                     </FormControl>
+                )}
 
+                {planDeEstudios && (
                     <FormControl fullWidth margin="dense">
                         <InputLabel>Plan de Estudio</InputLabel>
                         <Controller
@@ -186,7 +189,8 @@ export const ContenidosMinimosForm: React.FC<Props> = ({ open, onClose, editStat
                         />
                         {errors.planEstudioId && <p style={{ color: "red" }}>{errors.planEstudioId.message}</p>}
                     </FormControl>
-
+                )}
+                {intensidades && (
                     <FormControl fullWidth margin="dense">
                         <InputLabel>Intensidad</InputLabel>
                         <Controller
@@ -209,7 +213,8 @@ export const ContenidosMinimosForm: React.FC<Props> = ({ open, onClose, editStat
                         />
                         {errors.intensidadId && <p style={{ color: "red" }}>{errors.intensidadId.message}</p>}
                     </FormControl>
-                </DialogContent>
+                )}
+            </DialogContent>
             {/* )} */}
             <DialogActions>
                 <Button onClick={onClose}>Cancelar</Button>

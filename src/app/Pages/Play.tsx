@@ -151,8 +151,19 @@ export const Play = () => {
 
   //Editar
   const handleEdit = (row: Irecomendacion_curricular_x_contenido_minimo_plan_estudio) => {
-    setEditState(row);
-    setModalAbrir(true);
+    if (recomendacionesCurricularesSelect.length == 0) {
+      toast.error("Seleccione una Recomendación Curricular");
+      // return;
+    } else {
+
+      if (contenidosMinimosSelect.length == 0) {
+        toast.error("Seleccione un Contenido Mínimo");
+        // return;
+      } else {
+        setEditState(row);
+        setModalAbrir(true);
+      }
+    }
   };
 
   // Estado para seleccionar solo una fila de Recomendaciones Curriculares

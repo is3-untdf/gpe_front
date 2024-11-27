@@ -192,81 +192,80 @@ export const ContenidosMinimos = () => {
       </div>
 
       {/* Tabla */}
-      {filteredData && (
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell>Id</StyledTableCell>
-                  <StyledTableCell>Nombre</StyledTableCell>
-                  <StyledTableCell>Horas Práctica</StyledTableCell>
-                  <StyledTableCell>Horas Teoría</StyledTableCell>
-                  <StyledTableCell>Exigencia</StyledTableCell>
-                  <StyledTableCell>Asignatura</StyledTableCell>
-                  <StyledTableCell>Plan de Estudio</StyledTableCell>
-                  <StyledTableCell>Nivel Intensidad</StyledTableCell>
-                  <StyledTableCell>-Acción-</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {filteredData.map((row) => (
-                  <StyledTableRow key={row.contenidoMinimoPlanEstudioId}>
-                    <StyledTableCell>
-                      {row.contenidoMinimoPlanEstudioId}
-                    </StyledTableCell>
-                    <StyledTableCell>{row.nombre}</StyledTableCell>
-                    <StyledTableCell>{row.horasPractica}</StyledTableCell>
-                    <StyledTableCell>{row.horasTeoria}</StyledTableCell>
-                    <StyledTableCell>{row.exigencia}</StyledTableCell>
-                    <StyledTableCell>
-                      {row.asignatura?.nombre || "-"}
-                    </StyledTableCell>
-                    <StyledTableCell>
-                      {row.planEstudio?.nombre || "-"}
-                    </StyledTableCell>
-                    <StyledTableCell>
-                      {row.intensidad?.nivel || "-"}
-                    </StyledTableCell>
-                    <StyledTableCell style={{ display: "flex" }}>
-                      <Tooltip title="Editar">
-                        <Fab
-                          color="secondary"
-                          size="small"
-                          style={{ marginRight: "20px" }}
-                          onClick={() => (
-                            setEditState(row), setModalAbrir(true)
-                          )}
-                        >
-                          <Edit />
-                        </Fab>
-                      </Tooltip>
-                      <Tooltip title="Eliminar">
-                        <Fab
-                          color="error"
-                          size="small"
-                          onClick={() => {
-                            setDeleteId(row.contenidoMinimoPlanEstudioId);
-                            setOpenDialog(true);
-                          }}
-                        >
-                          <Delete />
-                        </Fab>
-                      </Tooltip>
-                    </StyledTableCell>
-                  </StyledTableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        ) && (
-          //Modal Eliminar
-          <div>
-            <AlertDialogEliminar
-              open={openDialog}
-              onClose={handleDialogClose}
-            />
-          </div>
-        )}
+      {contenidosMinimos && (
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Id</StyledTableCell>
+                <StyledTableCell>Nombre</StyledTableCell>
+                <StyledTableCell>Horas Práctica</StyledTableCell>
+                <StyledTableCell>Horas Teoría</StyledTableCell>
+                <StyledTableCell>Exigencia</StyledTableCell>
+                <StyledTableCell>Asignatura</StyledTableCell>
+                <StyledTableCell>Plan de Estudio</StyledTableCell>
+                <StyledTableCell>Nivel Intensidad</StyledTableCell>
+                <StyledTableCell>-Acción-</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredData.map((row) => (
+                <StyledTableRow key={row.contenidoMinimoPlanEstudioId}>
+                  <StyledTableCell>
+                    {row.contenidoMinimoPlanEstudioId}
+                  </StyledTableCell>
+                  <StyledTableCell>{row.nombre}</StyledTableCell>
+                  <StyledTableCell>{row.horasPractica}</StyledTableCell>
+                  <StyledTableCell>{row.horasTeoria}</StyledTableCell>
+                  <StyledTableCell>{row.exigencia}</StyledTableCell>
+                  <StyledTableCell>
+                    {row.asignatura?.nombre || "-"}
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    {row.planEstudio?.nombre || "-"}
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    {row.intensidad?.nivel || "-"}
+                  </StyledTableCell>
+                  <StyledTableCell style={{ display: "flex" }}>
+                    <Tooltip title="Editar">
+                      <Fab
+                        color="secondary"
+                        size="small"
+                        style={{ marginRight: "20px" }}
+                        onClick={() => (
+                          setEditState(row), setModalAbrir(true)
+                        )}
+                      >
+                        <Edit />
+                      </Fab>
+                    </Tooltip>
+                    <Tooltip title="Eliminar">
+                      <Fab
+                        color="error"
+                        size="small"
+                        onClick={() => {
+                          setDeleteId(row.contenidoMinimoPlanEstudioId);
+                          setOpenDialog(true);
+                        }}
+                      >
+                        <Delete />
+                      </Fab>
+                    </Tooltip>
+                  </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
+      {/* Modal Eliminar */}
+      {contenidosMinimos && (
+        <AlertDialogEliminar
+          open={openDialog}
+          onClose={handleDialogClose}
+        />
+      )}
       {modalAbrir && (
         <div>
           {/* Modal Agregar */}
