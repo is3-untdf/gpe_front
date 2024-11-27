@@ -7,10 +7,10 @@ import { PlanDeEstudio } from './app/Pages/PlanDeEstudio'; // Importa PlanDeEstu
 import { ContenidosMinimos } from './app/Pages/ContenidosMinimos'; // Importa ContenidosMinimos
 import { Play } from './app/Pages/Play'; // Importa Play
 import myImage from "./images/logo_untdf.png";
-import { AutoStories, Description, Functions, SignalCellularConnectedNoInternet1Bar, Subscriptions } from '@mui/icons-material';
+import { AutoStories, Description, Summarize, Functions, SignalCellularConnectedNoInternet1Bar, Subscriptions } from '@mui/icons-material';
 import { Inicio } from './app/Pages/Inicio';
 import { Intensidad } from './app/Pages/Intensidad';
-import { useEffect } from 'react';
+import { Reporte } from './app/Pages/Reportes';
 
 const NAVIGATION: Navigation = [
   {
@@ -38,11 +38,11 @@ const NAVIGATION: Navigation = [
     title: 'Play',
     icon: <Subscriptions />,
   },
-  // {
-  //   segment: 'contenidoMinimo',
-  //   title: 'Contenido Mínimo',
-  //   icon: <Description />,
-  // },
+  {
+    segment: 'reporte',
+    title: 'Reportes',
+    icon: <Summarize />
+  }
 ];
 
 const demoTheme = createTheme({
@@ -70,9 +70,6 @@ export default function DashboardLayoutBranding(props: DemoProps) {
   const router = useDemoRouter('/');
   const demoWindow = window !== undefined ? window() : undefined;
 
-  useEffect (() => {
-    document.title = "Sistema Plan de Estudio";
-  })
   return (
     <AppProvider
       navigation={NAVIGATION}
@@ -90,7 +87,7 @@ export default function DashboardLayoutBranding(props: DemoProps) {
         {router.pathname === '/contenidosMinimos' && <ContenidosMinimos />}
         {router.pathname === '/intensidad' && <Intensidad />}
         {router.pathname === '/play' && <Play />}
-        {/* {router.pathname === '/contenidoMinimo' && <ContenidoMinimo />} */}
+        {router.pathname === '/reporte' && <Reporte /> }
         {router.pathname === '/' && <Inicio />}
       </DashboardLayout>
     </AppProvider>
