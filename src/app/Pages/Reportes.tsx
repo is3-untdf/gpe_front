@@ -1,4 +1,4 @@
-import { Fab, Link, Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Tooltip } from "@mui/material";
+import { Fab, Paper, styled, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow} from "@mui/material";
 import { Download } from "@mui/icons-material";
 import { getArchivoReporte } from "../../store/slices/reporte/reporteUtils";
 
@@ -10,11 +10,19 @@ export const Reporte = () => {
   }
 
   const entidades: Entidad[] = [
-    {nombre: 'Asignaturas', link: 'asignaturas' },
-    {nombre: 'Titulos', link: 'titulos' },
-    {nombre: 'Planes de Estudio', link: 'planes-de-estudio' },
-    {nombre: 'Contenidos Curriculares Basicos', link: 'contenidos-curriculares-basicos' },
-    {nombre: 'Actividades Profesionales Reservadas', link: 'actividades-profesionales-reservadas' }
+    { nombre: 'Actividades Profesionales Reservadas', link: 'actividades-profesionales-reservadas' },
+    { nombre: 'Areas Red UNCI', link: 'areas-red-unci' },
+    { nombre: 'Recomendaciones Curriculares', link: 'recomendacion-curricular' },
+    { nombre: 'Trayectos Formativos', link: 'trayecto-formativo' },
+    { nombre: 'Planes de Estudio General', link: 'planes-de-estudio-general' },
+    { nombre: 'Contenidos Minimos de Planes de Estudio', link: 'contenido-minimos-de-planes-de-estudio' },
+    { nombre: 'Contenidos Curriculares Basicos', link: 'contenidos-curriculares-basicos' },
+    { nombre: 'Pesos Relativos', link: 'pesos-relativos' },
+    { nombre: 'Asignaturas', link: 'asignaturas' },
+    { nombre: 'Titulos', link: 'titulos' },
+    { nombre: 'Planes de Estudio', link: 'planes-de-estudio' },
+    { nombre: 'Contenidos Curriculares Basicos', link: 'contenidos-curriculares-basicos' },
+    { nombre: 'Actividades Profesionales Reservadas', link: 'actividades-profesionales-reservadas' }
   ];
   
   const descargarReporte = async (link:string) => {
